@@ -1,0 +1,9 @@
+.sideContainer {
+  width: 15vw;
+  
+  background-color: #2f2f2f;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}

@@ -1,0 +1,142 @@
+/* Contenedor principal del modal */
+.propertyInfoOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Contenido del modal */
+.propertyInfoContent {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+
+/* Fila 1: Header */
+.propertyInfoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.propertyInfoCloseButton {
+  background: #db703b;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Separador horizontal */
+.propertyInfoHr {
+  border: none;
+  height: 2px;
+  background-color: #db703b;
+  margin: 10px 0;
+}
+
+/* Fila 2: Carrusel + detalles */
+.propertyInfoBody {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.propertyInfoCarousel {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.propertyInfoCarousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Flechas del carrusel */
+.propertyInfoCarouselButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(219,112,59,0.8);
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.propertyInfoCarouselButton.left {
+  left: 10px;
+}
+
+.propertyInfoCarouselButton.right {
+  right: 10px;
+}
+
+/* Precio destacado */
+.propertyInfoPrice {
+  font-size: 18px;
+  font-weight: bold;
+  color: #db703b;
+}
+
+/* Detalles de la propiedad */
+.propertyInfoDetails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+}
+
+.propertyInfoDescription {
+  font-size: 14px;
+  color: #333;
+  margin-top: 10px;
+}
+
+/* Fila 3: Footer */
+.propertyInfoFooter {
+  display: flex;
+  justify-content: center;
+}
+
+.propertyInfoButton {
+  width: 200px;
+  height: 40px;
+  background-color: #db703b;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+  color: black;
+}
+
+.propertyInfoButton:hover {
+  background-color: #b85b2f;
+}

@@ -1,0 +1,11 @@
+.addPropertyContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+  gap: 2vw;
+  
+}
+.formContainer {
+  display: flex;
+}

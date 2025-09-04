@@ -1,0 +1,111 @@
+/* Contenedores */
+.bannerSearchContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 170px;
+}
+
+.preFilterContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 2vw;
+}
+
+/* Titulo */
+.bannerTitle {
+  color: white;
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  letter-spacing: 1px;
+  max-width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.bannerTitle:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* Botones de Prefiltros  */
+.bannerMainButton {
+  width: 150px;
+  height: 40px;
+  background-color: #db703b;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+  color: black;
+}
+
+.bannerMainButton:hover {
+  background-color: #b85b2f;
+  border: none;
+  color: black;
+}
+
+.bannerButton {
+  width: 150px;
+  height: 40px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+  color: black;
+}
+.bannerButton:hover {
+  background-color: #f0f0f0;
+  border: none;
+  color: black;
+}
+
+/* Barra de busqueda */
+.searchBarContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.searchBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.inputSearch {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 10px;
+  flex: 1;
+}
+
+.searchButton {
+  border: none;
+  background-color: #ffffff;
+  color: black;
+  padding: 0 15px;
+  cursor: pointer;
+}

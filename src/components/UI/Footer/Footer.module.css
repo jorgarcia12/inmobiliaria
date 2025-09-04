@@ -1,0 +1,86 @@
+.footerContainer {
+  background-color: #003a33;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  height: auto;
+  width: 100%;
+  color: white;
+  padding: 20px 40px;
+  gap: 2rem;
+  box-sizing: border-box;
+}
+h4 {
+  font-weight: 300;
+}
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem 0;
+  gap: 1rem;
+}
+
+.logoContainer img {
+  height: 50px;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+}
+.logoContainer h4 {
+  font-weight: 300;
+}
+.textContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.footerIndex {
+  align-items: center;
+  color: white;
+}
+
+.footerIndex li {
+  margin: 0.4rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.footerIndex li:hover {
+  font-weight: 600;
+}
+
+.contactContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contactContainer p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.socialContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.socialContainer p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.socialContainer p:hover {
+  font-weight: 600;
+  scale: 1.01;
+}
+
+.contactContainer p:hover {
+  font-weight: 600;
+  scale: 1.01;
+}

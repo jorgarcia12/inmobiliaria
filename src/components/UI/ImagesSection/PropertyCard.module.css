@@ -1,0 +1,70 @@
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  height: 45vh;
+  background-color: #f8f9fa;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  margin: 20px;
+  border-radius: 0.4rem;
+}
+.imgContainer {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.imgProperty {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.4rem 0 0 0.4rem;
+}
+.detailContainer {
+  width: 70%;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.propertyDetails {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4vw;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.buttonMore {
+  width: 200px;
+  height: 40px;
+  background-color: #db703b;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+  color: black;
+}
+
+.buttonMore:hover {
+  background-color: #b85b2f;
+  color: black;
+  border: none;
+}
+
+

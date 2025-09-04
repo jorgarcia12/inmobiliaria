@@ -1,0 +1,43 @@
+.navBarAdminContainer {
+  display: flex;
+  flex-direction: row;
+  background-color: #db703b;
+  justify-content: space-between;
+}
+
+.logoContainer img {
+  height: 50px;
+  margin: 10px 0 10px 0;
+}
+.userIconContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  gap: 1vw;
+}
+.buttonAddProperty {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 10px;
+  background-color: #3a3a3a;
+  color: white;
+  transition: 0.2s ease;
+}
+.buttonAddProperty:hover {
+  cursor: pointer;
+  background-color: #4f4f4f;
+}

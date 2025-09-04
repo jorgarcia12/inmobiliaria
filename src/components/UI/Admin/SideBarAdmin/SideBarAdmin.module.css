@@ -1,0 +1,36 @@
+.sideBarContainer {
+  width: 250px;
+  height: 100vh;
+  background-color: #003a33;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.menuSection {
+  margin-bottom: 1rem;
+}
+
+.reportSection {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+.buttonAction {
+  padding: 0.2rem;
+  transition: 0.2s ease;
+}
+.buttonAction:hover {
+  cursor: pointer;
+  background-color: #003a33;
+  border-radius: 0.2rem;
+}
+.reportSection:hover {
+  background-color: #004d40;
+}

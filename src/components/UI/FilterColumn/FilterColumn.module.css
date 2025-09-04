@@ -1,0 +1,125 @@
+.filterColumnContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.searchFilter {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 3vh 0;
+}
+
+.searchForm {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 290px;
+  border: none;
+}
+.searchInput {
+  margin-left: 9px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  flex: 1;
+}
+
+.searchBarContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 30px;
+}
+.searchbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: none;
+}
+.searchbutton:hover {
+  background-color: #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+.filterButton {
+  border: none;
+  color: #003a33;
+  cursor: pointer;
+}
+
+.filterHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+  border-bottom: solid 1px black;
+  margin-bottom: 2vh;
+  padding-bottom: 0.5vh;
+}
+
+.filterTitle {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Filtros dinamicos  */
+
+.filterContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 6px 0 0 6px;
+  width: 100%;
+  padding: 0.5rem 1rem;
+}
+
+.filterContainer.checkboxContainer {
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.filterContainer label {
+  margin-bottom: 6px;
+  margin-left: 6px;
+  font-weight: 700;
+  color: #003a33;
+}
+
+.filterContainer.checkboxContainer label {
+  margin-bottom: 0;
+  margin-left: 6px;
+}
+
+.selectFilter {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #003a33;
+  background-color: #ffffff;
+  font-size: 12px;
+  color: #003a33;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 290px;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10'%3E%3Cpath fill='%233a7f6a' d='M7 10L0 0h14z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px;
+}
