@@ -36,3 +36,31 @@
   margin: 0 0.5rem;
   color: #555;
 }
+@media (max-width: 480px) {
+  .breadcrumbContainer {
+    height: auto;
+    font-size: 10px; /* más pequeño */
+    padding-left: 10px;
+    padding-right: 10px;
+    
+  }
+
+  .breadcrumbList {
+    flex-wrap: wrap; /* si no cabe en una línea se rompe */
+    margin: 5px 0;
+    overflow-x: scroll;
+  }
+
+  .breadcrumbItem {
+    white-space: nowrap;
+    margin-right: 5px;
+  }
+
+  .breadcrumbSeparator {
+    margin: 0 0.3rem;
+  }
+
+  .breadcrumbContainer a {
+    font-size: 10px;
+  }
+}

@@ -84,3 +84,27 @@ h4 {
   font-weight: 600;
   scale: 1.01;
 }
+
+@media (max-width: 480px) {
+  .footerContainer {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1.5rem;
+    padding: 20px;
+  }
+
+  .logoContainer {
+    align-items: center;
+  }
+
+  .footerIndex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contactContainer,
+  .socialContainer {
+    align-items: center;
+  }
+}

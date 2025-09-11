@@ -1,64 +1,33 @@
-import { Button, Table } from "react-bootstrap";
 import styles from "./MainAdmin.module.css";
 import type { IPropiedad } from "../../../../types/IPropiedad";
-import { useState } from "react";
-
-const propiedadesEjemplo: IPropiedad[] = [
-  {
-    id: 1,
-    titulo: "Casa moderna en el centro",
-    descripcion:
-      "Hermosa casa ubicada en pleno centro de la ciudad, con patio amplio y detalles de categoría.",
-    precio: 150000,
-    supCubierta: 120,
-    supTotal: 120,
-    cantidadHabitaciones: 3,
-    cantidadAmbientes: 2,
-    cantidadBanos: 2,
-    estado: "DISPONIBLE",
-    tipoOperacion: "VENTA",
-    tipoPropiedad: "CASA",
-    imagenes: [
-      {
-        id: 101,
-        url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-        propId: 1,
-      },
-      {
-        id: 102,
-        url: "https://images.unsplash.com/photo-1570129477492-45c003edd2be",
-        propId: 1,
-      },
-    ],
-  },
-  {
-    id: 2,
-    titulo: "Departamento con vista al río",
-    descripcion:
-      "Departamento moderno, luminoso, con balcón y excelente ubicación frente al río.",
-    precio: 50000,
-    supCubierta: 120,
-    supTotal: 200,
-    cantidadHabitaciones: 3,
-    cantidadAmbientes: 2,
-    cantidadBanos: 2,
-    estado: "DISPONIBLE",
-    tipoOperacion: "VENTA",
-    tipoPropiedad: "CASA",
-    imagenes: [
-      {
-        id: 201,
-        url: "https://images.unsplash.com/photo-1570129477492-45c003edd2be",
-        propId: 2,
-      },
-    ],
-  },
-];
+import { useEffect, useState } from "react";
+import { propiedadService } from "../../../../services/propiedadService";
+import { Button, Spinner, Table } from "react-bootstrap";
 
 export const MainAdmin = () => {
+  const [propiedades, setPropiedades] = useState<IPropiedad[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [propiedadSeleccionada, setPropiedadSeleccionada] =
     useState<IPropiedad | null>(null);
 
+  useEffect(() => {
+    const fetchPropiedades = async () => {
+      try {
+        const data = await propiedadService.getAllProperties();
+        setPropiedades(data);
+      } catch (error) {
+        console.log("error al traer las propiedades", error);
+        setError("Error al cargar las propiedades");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPropiedades();
+  }, []);
+
+  if (loading) return <Spinner animation="border" />;
+  if (error) return <div>{error}</div>;
   return (
     <div className={styles.container}>
       <h2>Listado de Propiedades</h2>
@@ -72,10 +41,11 @@ export const MainAdmin = () => {
             <th>Precio</th>
             <th>Ciudad</th>
             <th>Dormitorios</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {propiedadesEjemplo.map((prop) => (
+          {propiedades.map((prop) => (
             <tr key={prop.id}>
               <td>{prop.id}</td>
               <td>
@@ -96,7 +66,7 @@ export const MainAdmin = () => {
               <td>{prop.tipoPropiedad}</td>
               <td>{prop.tipoOperacion}</td>
               <td>${prop.precio.toLocaleString()}</td>
-              <td>{prop.direccion?.ciudad}</td>
+              <td>{prop.direccion?.ciudad || "-"}</td>
               <td>{prop.cantidadHabitaciones}</td>
               <td>
                 <Button
@@ -111,7 +81,33 @@ export const MainAdmin = () => {
           ))}
         </tbody>
       </Table>
-      {/* Mostrar la ficha tecnica completa de cada una de las propiedades */}
+
+      {/* mostrar un modal o sección con la propiedad seleccionada */}
+      {propiedadSeleccionada && (
+        <div className={styles.detalleContainer}>
+          <h4>{propiedadSeleccionada.titulo}</h4>
+          <p>{propiedadSeleccionada.descripcion}</p>
+          <p>
+            {propiedadSeleccionada.cantidadHabitaciones} hab |{" "}
+            {propiedadSeleccionada.cantidadBanos} baños
+          </p>
+          {propiedadSeleccionada.imagenes.map((img) => (
+            <img
+              key={img.id}
+              src={img.url}
+              alt="detalle"
+              style={{ width: "100px", marginRight: "5px" }}
+            />
+          ))}
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => setPropiedadSeleccionada(null)}
+          >
+            Cerrar
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

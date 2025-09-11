@@ -1,4 +1,5 @@
 export interface IDireccion {
+  id?: number;
   calle: string;
   numeracion: string;
   pisoDepartamento?: string;

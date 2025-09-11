@@ -34,6 +34,16 @@
   transform: scale(1.05);
   cursor: pointer;
 }
+.banner {
+  background-image: url("../../../assets/bannerImg.jpg"); /* ajustá ruta */
+  background-size: cover;
+  background-position: center;
+  height: 560px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 /* Botones de Prefiltros  */
 .bannerMainButton {
@@ -108,4 +118,65 @@
   color: black;
   padding: 0 15px;
   cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  /* Contenedores */
+  .bannerSearchContainer {
+    margin-top: 20dvh;
+    padding-top: 100px;
+    padding-bottom: 250px;
+  }
+
+  .banner {
+    height: 50dvh;
+    background-position: top;
+    padding-top: 75px; /* 👈 agrega espacio por la altura de la navbar */
+    box-sizing: border-box;
+  }
+
+  /* Titulo */
+  .bannerTitle {
+    font-size: 2rem;
+    max-width: 95%;
+    line-height: 1.2;
+  }
+
+  .preFilterContainer {
+    flex-direction: column; /* de fila a columna */
+    gap: 15px; /* más cómodo en vertical */
+  }
+
+  /* Botones */
+  .bannerMainButton,
+  .bannerButton {
+    width: 100%; /* ocupan todo el ancho */
+    max-width: 300px; /* límite para que no se estiren demasiado */
+    height: 45px;
+    font-size: 14px;
+  }
+
+  /* Barra de búsqueda */
+  .searchBarContainer {
+    margin-top: 20px;
+    padding: 0 10px; /* margen interno lateral */
+  }
+
+  .searchBar {
+    flex-direction: column; /* de fila a columna */
+    max-width: 100%; /* ocupa todo el ancho disponible */
+  }
+
+  .inputSearch {
+    width: 100%;
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .searchButton {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-top: 1px solid #ddd; /* separador visual */
+  }
 }

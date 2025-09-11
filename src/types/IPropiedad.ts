@@ -3,13 +3,11 @@ import type { IDireccion } from "./IDireccion";
 import type { IImagenPropiedad } from "./IImagenPropiedad";
 import type { IUsuario } from "./IUsuario";
 
-
-
 export interface IPropiedad {
-   id: number;                        
+  id?: number;
   titulo: string;
   descripcion: string;
-  precio: number;                    
+  precio: number;
   supCubierta: number;
   supTotal: number;
   cantidadHabitaciones: number;
@@ -20,8 +18,8 @@ export interface IPropiedad {
   fechaModificacion?: Date;
   fechaPublicacion?: Date;
   tipoOperacion: TipoOperacion;
-  agenteAsignado?: IUsuario;         
+  agenteAsignado?: IUsuario;
   tipoPropiedad: TipoPropiedad;
-  direccion?: IDireccion;
+  direccion: IDireccion;
   imagenes: IImagenPropiedad[];
 }
