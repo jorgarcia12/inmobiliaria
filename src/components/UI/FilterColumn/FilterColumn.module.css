@@ -1,11 +1,43 @@
+/* FilterColumn.module.css */
+
+/* Contenedor principal */
+.filterColumnWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* Botón hamburguesa */
+.hamburgerButton {
+  display: none;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #003a33;
+  color: white;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.hamburgerLogo {
+  height: 30px;
+  object-fit: contain;
+}
+
+/* Contenedor de filtros */
 .filterColumnContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
+  transition: max-height 0.3s ease;
 }
 
+/* Búsqueda */
 .searchFilter {
   display: flex;
   flex-direction: column;
@@ -27,6 +59,7 @@
   max-width: 290px;
   border: none;
 }
+
 .searchInput {
   margin-left: 9px;
   border: none;
@@ -42,6 +75,7 @@
   width: 100%;
   margin-top: 30px;
 }
+
 .searchbutton {
   display: flex;
   justify-content: center;
@@ -49,16 +83,19 @@
   background-color: white;
   border: none;
 }
+
 .searchbutton:hover {
   background-color: #f0f0f0;
   transition: background-color 0.3s ease;
 }
+
 .filterButton {
   border: none;
   color: #003a33;
   cursor: pointer;
 }
 
+/* Cabecera de filtros */
 .filterHeader {
   display: flex;
   flex-direction: row;
@@ -78,8 +115,7 @@
   align-items: center;
 }
 
-/* Filtros dinamicos  */
-
+/* Filtros dinámicos */
 .filterContainer {
   display: flex;
   flex-direction: column;
@@ -122,4 +158,40 @@
   background-repeat: no-repeat;
   background-position: right 16px center;
   background-size: 12px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .hamburgerButton {
+    display: flex;
+  }
+
+  .filterColumnContainer {
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .filterColumnContainer.open {
+    max-height: 2000px; /* suficiente para mostrar todos los filtros */
+  }
+
+  .searchFilter {
+    width: 90%;
+  }
+
+  .searchForm {
+    max-width: 100%;
+  }
+
+  .selectFilter {
+    max-width: 100%;
+  }
+
+  .filterContainer {
+    padding: 0.5rem 0.5rem;
+  }
+
+  .filterHeader {
+    width: 95%;
+  }
 }

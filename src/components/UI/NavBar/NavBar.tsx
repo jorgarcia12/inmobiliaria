@@ -10,6 +10,7 @@ export const NavBar = () => {
   const handleLogin = () => {
     navigate("/admin");
   };
+
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={styles.navBarContainer}>
@@ -29,7 +30,7 @@ export const NavBar = () => {
         <ul>
           <li>
             <Link
-              to="/comprar"
+              to="/propiedades"
               className={styles.links}
               onClick={() => setIsOpen(false)}
             >
@@ -47,7 +48,7 @@ export const NavBar = () => {
           </li>
           <li>
             <Link
-              to="/alquilar"
+              to="/propiedades"
               className={styles.links}
               onClick={() => setIsOpen(false)}
             >
@@ -64,11 +65,11 @@ export const NavBar = () => {
             </Link>
           </li>
         </ul>
-      <div className={styles.loginContainer}>
-        <Button className={styles.loginButton} onClick={handleLogin}>
-          Iniciar Sesion
-        </Button>
-      </div>
+        <div className={styles.loginContainer}>
+          <Button className={styles.loginButton} onClick={handleLogin}>
+            Iniciar Sesion
+          </Button>
+        </div>
       </nav>
     </div>
   );

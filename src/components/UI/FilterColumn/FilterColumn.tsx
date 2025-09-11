@@ -1,28 +1,28 @@
 import { useState, useEffect } from "react";
 import styles from "./FilterColumn.module.css";
 import { Button } from "react-bootstrap";
-import { ListFilter, Search } from "lucide-react";
+import { ListFilter, Search, X } from "lucide-react";
 import { Switch } from "@mui/material";
 import axios from "axios";
 
-// Tipado de filtros
 interface FilterOption {
   id: string;
   label: string;
   type: "select" | "checkbox";
-  options?: string[]; // solo para select
+  options?: string[];
 }
 
 interface FilterColumnProps {
-  apiEndpoint?: string; // opcional: endpoint para traer filtros dinámicos
+  apiEndpoint?: string;
+  logo?: string;
 }
 
-export const FilterColumn = ({ apiEndpoint }: FilterColumnProps) => {
-  const [formValue, setFormValue] = useState<string>("");
+export const FilterColumn = ({ apiEndpoint, logo }: FilterColumnProps) => {
+  const [formValue, setFormValue] = useState("");
   const [filters, setFilters] = useState<Record<string, string | boolean>>({});
   const [filterOptions, setFilterOptions] = useState<FilterOption[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
 
-  // Traer filtros del backend si se pasa endpoint
   useEffect(() => {
     const fetchFilters = async () => {
       if (!apiEndpoint) return;
@@ -33,113 +33,110 @@ export const FilterColumn = ({ apiEndpoint }: FilterColumnProps) => {
         console.error("Error fetching filters:", error);
       }
     };
-
     fetchFilters();
   }, [apiEndpoint]);
 
-  // Handler para selects y inputs de texto
   const handleFilterChange = (
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const target = e.target;
-
     if (target instanceof HTMLInputElement) {
-      // Para inputs (checkbox o texto)
       const { name, type, value, checked } = target;
       setFilters((prev) => ({
         ...prev,
         [name]: type === "checkbox" ? checked : value,
       }));
-    } else if (target instanceof HTMLSelectElement) {
-      // Para selects
-      const { name, value } = target;
-      setFilters((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+    } else {
+      setFilters((prev) => ({ ...prev, [target.name]: target.value }));
     }
   };
 
-  // Handler específico para el Switch (MUI)
   const handleSwitchChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     checked: boolean
   ) => {
-    const name = event.target.name;
-    setFilters((prev) => ({ ...prev, [name]: checked }));
+    setFilters((prev) => ({ ...prev, [event.target.name]: checked }));
   };
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setFormValue(e.target.value);
-  };
 
   return (
-    <div className={styles.filterColumnContainer}>
-      <div className={styles.searchFilter}>
-        <form className={styles.searchForm}>
-          <input
-            type="text"
-            value={formValue}
-            placeholder="Buscar..."
-            onChange={handleSearchChange}
-            className={styles.searchInput}
-          />
-          <Button className={styles.searchbutton}>
-            <Search size={20} className={styles.filterButton} />
-          </Button>
-        </form>
+    <div className={styles.filterColumnWrapper}>
+      {/* Botón hamburguesa mobile */}
+      <div
+        className={styles.hamburgerButton}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {logo && <img src={logo} alt="Logo" className={styles.hamburgerLogo} />}
+        <span>Filtros</span>
+        {isOpen ? <X size={20} /> : <ListFilter size={20} />}
       </div>
 
-      <div className={styles.filterHeader}>
-        <h3 className={styles.filterTitle}>
-          Filtros <ListFilter />
-        </h3>
-      </div>
+      {/* Contenedor de filtros */}
+      <div
+        className={`${styles.filterColumnContainer} ${
+          isOpen ? styles.open : ""
+        }`}
+      >
+        <div className={styles.searchFilter}>
+          <form className={styles.searchForm}>
+            <input
+              type="text"
+              value={formValue}
+              placeholder="Buscar..."
+              onChange={handleSearchChange}
+              className={styles.searchInput}
+            />
+            <Button className={styles.searchbutton}>
+              <Search size={20} className={styles.filterButton} />
+            </Button>
+          </form>
+        </div>
 
-      {filterOptions.map((filter) => (
-        <div
-          key={filter.id}
-          className={`${styles.filterContainer} ${
-            filter.type === "checkbox" ? styles.checkboxContainer : ""
-          }`}
-        >
-          <label htmlFor={filter.id}>{filter.label}</label>
+        {filterOptions.map((filter) => (
+          <div
+            key={filter.id}
+            className={`${styles.filterContainer} ${
+              filter.type === "checkbox" ? styles.checkboxContainer : ""
+            }`}
+          >
+            <label htmlFor={filter.id}>{filter.label}</label>
 
-          {filter.type === "select" && (
-            <select
-              name={filter.id}
-              id={filter.id}
-              value={String(filters[filter.id] || "")} // siempre string
-              onChange={handleFilterChange}
-              className={styles.selectFilter}
-            >
-              <option value="">Seleccionar...</option>
-              {(Array.isArray(filter.options) ? filter.options : []).map(
-                (opt) => (
+            {filter.type === "select" && (
+              <select
+                name={filter.id}
+                id={filter.id}
+                value={String(filters[filter.id] || "")}
+                onChange={handleFilterChange}
+                className={styles.selectFilter}
+              >
+                <option value="">Seleccionar...</option>
+                {(filter.options || []).map((opt) => (
                   <option key={opt} value={opt}>
                     {opt}
                   </option>
-                )
-              )}
-            </select>
-          )}
+                ))}
+              </select>
+            )}
 
-          {filter.type === "checkbox" && (
-            <Switch
-              name={filter.id}
-              id={filter.id}
-              checked={Boolean(filters[filter.id])}
-              onChange={handleSwitchChange}
-              sx={{
-                "& .MuiSwitch-switchBase.Mui-checked": { color: "#003a33" },
-                "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-                  backgroundColor: "#049483ff",
-                },
-              }}
-            />
-          )}
-        </div>
-      ))}
+            {filter.type === "checkbox" && (
+              <Switch
+                name={filter.id}
+                id={filter.id}
+                checked={Boolean(filters[filter.id])}
+                onChange={handleSwitchChange}
+                sx={{
+                  "& .MuiSwitch-switchBase.Mui-checked": { color: "#003a33" },
+                  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                    backgroundColor: "#049483ff",
+                  },
+                }}
+              />
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

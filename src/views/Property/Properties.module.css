@@ -15,5 +15,11 @@
 
 .filterColumn {
   background-color: rgba(0, 108, 95, 0.4);
-  
+}
+
+@media (max-width: 480px) {
+  .contentContainer {
+    display: flex;
+    flex-direction: column;
+  }
 }
