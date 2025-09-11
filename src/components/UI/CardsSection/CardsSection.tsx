@@ -22,7 +22,7 @@ export const CardsSection = () => {
             Propiedades pensadas para vos, con el respaldo de nuestra
             experiencia
           </h5>
-          <p>
+          <p className={styles.cardText}>
             Te acompañamos en cada paso para que encuentres el inmueble que se
             adapte a tu vida.
           </p>
@@ -68,7 +68,7 @@ export const CardsSection = () => {
             Propiedades pensadas para vos, con el respaldo de nuestra
             experiencia
           </h5>
-          <p>
+          <p className={styles.cardText}>
             Te acompañamos en cada paso para que encuentres el inmueble que se
             adapte a tu vida.
           </p>

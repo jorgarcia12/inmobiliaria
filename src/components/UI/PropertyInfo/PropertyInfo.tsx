@@ -3,9 +3,7 @@ import type { IPropiedad } from "../../../types/IPropiedad";
 import { Modal, Carousel, Button } from "react-bootstrap";
 import { BedDouble, Bath, Ruler } from "lucide-react";
 
-import styles from "./PropertyInfo.module.css"
-
-
+import styles from "./PropertyInfo.module.css";
 
 interface PropertyInfoProps {
   propiedad: IPropiedad;
@@ -13,43 +11,72 @@ interface PropertyInfoProps {
   onClose: () => void;
 }
 
-export const PropertyInfo: FC<PropertyInfoProps> = ({ propiedad, show, onClose }) => {
+export const PropertyInfo: FC<PropertyInfoProps> = ({
+  propiedad,
+  show,
+  onClose,
+}) => {
+  const precioFormateado = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+  }).format(propiedad.precio);
+
   return (
-    <Modal show={show} onHide={onClose} size="lg" centered>
-      {/* Fila 1: Header */}
+    <Modal
+      show={show}
+      onHide={onClose}
+      size="lg"
+      centered
+      dialogClassName={styles.propertyInfoDialog}
+    >
+      {/* Header */}
       <Modal.Header closeButton>
-        <Modal.Title>{propiedad.titulo}</Modal.Title>
+        <Modal.Title className={styles.propertyInfoTitle}>
+          {propiedad.titulo}
+        </Modal.Title>
       </Modal.Header>
 
-      {/* Fila 2: Carrusel + detalles */}
-      <Modal.Body>
+      {/* Body */}
+      <Modal.Body className={styles.propertyInfoBody}>
         <Carousel>
           {propiedad.imagenes.map((img) => (
             <Carousel.Item key={img.id}>
               <img
-                className="d-block w-100"
+                className={styles.propertyInfoImg}
                 src={img.url}
                 alt={propiedad.titulo}
-                style={{ height: "400px", objectFit: "cover", borderRadius: "10px" }}
               />
             </Carousel.Item>
           ))}
         </Carousel>
 
-        <div className="mt-3">
-          <h5 className="text-danger">${propiedad.precio}</h5>
-          <div className="d-flex gap-3 my-2">
-            <span><BedDouble size={20} /> {propiedad.cantidadHabitaciones} hab.</span>
-            <span><Bath size={20} /> {propiedad.cantidadBanos} baños</span>
-            <span><Ruler size={20} /> {propiedad.supTotal} m²</span>
+        <div className={styles.propertyInfoContent}>
+          <h5 className={styles.propertyInfoPrice}>{precioFormateado}</h5>
+          <div className={styles.propertyInfoDetails}>
+            <span>
+              <BedDouble size={20} /> {propiedad.cantidadHabitaciones} hab.
+            </span>
+            <span>
+              <Bath size={20} /> {propiedad.cantidadBanos} baños
+            </span>
+            <span>
+              <Ruler size={20} /> {propiedad.supTotal} m²
+            </span>
           </div>
-          <p>{propiedad.descripcion}</p>
+          <p className={styles.propertyInfoDescription}>
+            {propiedad.descripcion}
+          </p>
         </div>
       </Modal.Body>
 
-      {/* Fila 3: Footer */}
-      <Modal.Footer>
-        <Button variant="dark" className={styles.propertyInfoButton} onClick={onClose}>
+      {/* Footer */}
+      <Modal.Footer className={styles.propertyInfoFooter}>
+        <Button
+          variant="dark"
+          className={styles.propertyInfoButton}
+          onClick={onClose}
+        >
           Consultar
         </Button>
       </Modal.Footer>

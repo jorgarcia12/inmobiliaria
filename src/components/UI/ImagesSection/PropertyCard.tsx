@@ -8,9 +8,18 @@ interface PropertyCardProps {
   onOpenModal: () => void;
 }
 
-export const PropertyCard: FC<PropertyCardProps> = ({ propiedad, onOpenModal }) => {
+export const PropertyCard: FC<PropertyCardProps> = ({
+  propiedad,
+  onOpenModal,
+}) => {
+  const precioFormateado = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0, // sin decimales
+  }).format(propiedad.precio);
+
   return (
-   <div className={styles.cardContainer}>
+    <div className={styles.cardContainer}>
       <div className={styles.imgContainer}>
         <img
           className={styles.imgProperty}
@@ -21,11 +30,23 @@ export const PropertyCard: FC<PropertyCardProps> = ({ propiedad, onOpenModal }) 
 
       <div className={styles.detailContainer}>
         <h2>{propiedad.titulo}</h2>
-        <p className="line-clamp-3">{propiedad.descripcion}</p>
+        <h3>{precioFormateado}</h3>
+        <p className={styles.propDescription}>
+          {propiedad.descripcion.length > 100
+            ? propiedad.descripcion.slice(0, 250) + "..."
+            : propiedad.descripcion}
+        </p>
+
         <div className={styles.propertyDetails}>
-          <span><BedDouble size={16} /> {propiedad.cantidadHabitaciones} hab.</span>
-          <span><Bath size={16} /> {propiedad.cantidadBanos} baños</span>
-          <span><Ruler size={16} /> {propiedad.supTotal} m²</span>
+          <span>
+            <BedDouble size={16} /> {propiedad.cantidadHabitaciones} hab.
+          </span>
+          <span>
+            <Bath size={16} /> {propiedad.cantidadBanos} baños
+          </span>
+          <span>
+            <Ruler size={16} /> {propiedad.supTotal} m²
+          </span>
         </div>
 
         <div className={styles.buttonContainer}>
