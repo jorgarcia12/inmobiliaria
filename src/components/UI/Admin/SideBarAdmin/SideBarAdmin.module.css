@@ -1,6 +1,7 @@
 .sideBarContainer {
   width: 250px;
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   background-color: #003a33;
   color: white;
   display: flex;

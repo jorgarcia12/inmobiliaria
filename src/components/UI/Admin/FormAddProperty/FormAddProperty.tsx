@@ -1,48 +1,60 @@
-import { useState, type ChangeEvent, type FC, type FormEvent } from "react";
+import {
+  useState,
+  useEffect,
+  type ChangeEvent,
+  type FC,
+  type FormEvent,
+} from "react";
 import type { IPropiedad } from "../../../../types/IPropiedad";
-import type {
-  Estado,
-  TipoOperacion,
-  TipoPropiedad,
-} from "../../../../types/enums";
+import type { Estado, TipoOperacion, TipoPropiedad } from "../../../../types/enums";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import styles from "./FormAddProperty.module.css"; // tu CSS
+import styles from "./FormAddProperty.module.css";
 import { cloudinaryService } from "../../../../services/cloudinaryService";
 import { useNavigate } from "react-router-dom";
+import { X } from "lucide-react";
 
 interface IFormAddPropertyProps {
-  onSubmit: (propiedad: IPropiedad) => void;
+  propiedadInicial?: IPropiedad; // si existe, se está editando
+  modo?: "crear" | "editar";
+  onSubmit: (propiedad: IPropiedad) => Promise<void>;
 }
-export const FormAddProperty: FC<IFormAddPropertyProps> = ({ onSubmit }) => {
-  const navigate = useNavigate();
-  const handleGoAdmin = () => {
-    navigate("/admin");
-  };
-  const [formData, setFormData] = useState<IPropiedad>({
-    id: undefined,
-    titulo: "",
-    descripcion: "",
-    precio: 0,
-    supCubierta: 0,
-    supTotal: 0,
-    cantidadHabitaciones: 0,
-    cantidadAmbientes: 0,
-    cantidadBanos: 0,
-    estado: "DISPONIBLE",
-    tipoOperacion: "VENTA",
-    tipoPropiedad: "CASA",
-    direccion: {
-      calle: "",
-      numeracion: "",
-      ciudad: "",
-      provincia: "",
-      pais: "",
-      codPostal: "",
-    },
-    imagenes: [],
-  });
 
-  // Cambios en inputs simples
+export const FormAddProperty: FC<IFormAddPropertyProps> = ({
+  propiedadInicial,
+  modo = "crear",
+  onSubmit,
+}) => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState<IPropiedad>(
+    propiedadInicial || {
+      id: undefined,
+      titulo: "",
+      descripcion: "",
+      precio: 0,
+      supCubierta: 0,
+      supTotal: 0,
+      cantidadHabitaciones: 0,
+      cantidadAmbientes: 0,
+      cantidadBanos: 0,
+      estado: "DISPONIBLE",
+      tipoOperacion: "VENTA",
+      tipoPropiedad: "CASA",
+      direccion: {
+        calle: "",
+        numeracion: "",
+        ciudad: "",
+        provincia: "",
+        pais: "",
+        codPostal: "",
+      },
+      imagenes: [],
+    }
+  );
+
+  useEffect(() => {
+    if (propiedadInicial) setFormData(propiedadInicial);
+  }, [propiedadInicial]);
+
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -50,16 +62,14 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({ onSubmit }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Cambios en dirección
   const handleDireccionChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      direccion: { ...prev.direccion, [name]: value }, // TypeScript ya sabe que direccion existe
+      direccion: { ...prev.direccion, [name]: value },
     }));
   };
 
-  // Cambios en imágenes (split por coma y trim)
   const handleImagenesChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
 
@@ -68,15 +78,13 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({ onSubmit }) => {
       const uploadedImages = await Promise.all(
         files.map(async (file) => {
           const data = await cloudinaryService.uploadImage(file);
-          return {
-            url: data.url,
-          };
+          return { url: data.url };
         })
       );
 
       setFormData((prev) => ({
         ...prev,
-        imagenes: uploadedImages,
+        imagenes: [...prev.imagenes, ...uploadedImages],
       }));
     } catch (error) {
       console.error("Error al subir imagenes:", error);
@@ -84,13 +92,29 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({ onSubmit }) => {
     }
   };
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (formData.titulo && formData.descripcion) {
-      onSubmit(formData);
+  const handleEliminarImagen = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      imagenes: prev.imagenes.filter((_, i) => i !== index),
+    }));
+  };
 
-      // reset
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (!formData.titulo || !formData.descripcion) return;
+
+    try {
+      await onSubmit(formData); // enviar al backend
+      navigate("/admin"); // redirigir después de crear/editar
+    } catch (error) {
+      console.error("Error al guardar propiedad:", error);
+      alert("Error al guardar propiedad");
+    }
+
+    if (modo === "crear") {
       setFormData({
+        id: undefined,
         titulo: "",
         descripcion: "",
         precio: 0,
@@ -117,9 +141,10 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({ onSubmit }) => {
 
   return (
     <Form onSubmit={handleSubmit} className={styles.formContainer}>
+      {/* Columna izquierda */}
       <div className={styles.formColumn}>
         <Form.Group className="mb-3">
-          <h5 className={styles.formSubtitle}>Informacion</h5>
+          <h5 className={styles.formSubtitle}>Información</h5>
           <Form.Label className={styles.label}>Título</Form.Label>
           <Form.Control
             className={styles.inputForm}
@@ -141,7 +166,8 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({ onSubmit }) => {
             required
           />
         </Form.Group>
-        <h5 className={styles.formSubtitle}>Caracteristicas</h5>
+
+        <h5 className={styles.formSubtitle}>Características</h5>
         <Row className="mb-3">
           <Col>
             <Form.Group>
@@ -157,9 +183,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({ onSubmit }) => {
           </Col>
           <Col>
             <Form.Group>
-              <Form.Label className={styles.label}>
-                Sup. Cubierta (m²)
-              </Form.Label>
+              <Form.Label className={styles.label}>Sup. Cubierta (m²)</Form.Label>
               <Form.Control
                 type="number"
                 className={styles.inputForm}
@@ -251,7 +275,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({ onSubmit }) => {
                 <option value="DEPARTAMENTO">Departamento</option>
                 <option value="TERRENO">Terreno</option>
                 <option value="LOCAL_COMERCIAL">Local Comercial</option>
-                <option value="GALPON">Galpon</option>
+                <option value="GALPON">Galpón</option>
               </Form.Select>
             </Form.Group>
           </Col>
@@ -274,6 +298,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({ onSubmit }) => {
         </Row>
       </div>
 
+      {/* Columna derecha */}
       <div className={styles.formColumn}>
         <h5 className={styles.formSubtitle}>Dirección</h5>
         <Row className="mb-3">
@@ -349,7 +374,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({ onSubmit }) => {
         </Row>
 
         <Form.Group className="mb-3">
-          <h5 className={styles.formSubtitle}>Imagenes</h5>
+          <h5 className={styles.formSubtitle}>Imágenes</h5>
           <Form.Control
             type="file"
             className={styles.inputForm}
@@ -358,24 +383,28 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({ onSubmit }) => {
           />
           {formData.imagenes && formData.imagenes.length > 0 && (
             <div className={styles.imagePreviewContainer}>
-              {formData.imagenes.map((img) => (
-                <img
-                  key={img.id}
-                  src={img.url}
-                  alt="preview"
-                  className={styles.imagePreview}
-                />
+              {formData.imagenes.map((img, index) => (
+                <div key={index} className={styles.imageWrapper}>
+                  <img
+                    src={img.url}
+                    alt="preview"
+                    className={styles.imagePreview}
+                  />
+                  <button
+                    type="button"
+                    className={styles.deleteImageBtn}
+                    onClick={() => handleEliminarImagen(index)}
+                  >
+                    <X/>
+                  </button>
+                </div>
               ))}
             </div>
           )}
         </Form.Group>
 
-        <Button
-          type="submit"
-          className={styles.saveProperty}
-          onClick={handleGoAdmin}
-        >
-          Agregar Propiedad
+        <Button type="submit" className={styles.saveProperty}>
+          {modo === "editar" ? "Actualizar Propiedad" : "Agregar Propiedad"}
         </Button>
       </div>
     </Form>

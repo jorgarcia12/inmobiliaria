@@ -7,6 +7,7 @@ import { AdminLayout } from "./views/AdminLayout/AdminLayout";
 import { PublicLayout } from "./views/PublicLayout/PublicLayout";
 import { AdminView } from "./views/AdminView/AdminView";
 import { AddProperty } from "./components/UI/Admin/AddProperty/AddProperty";
+import { EditProperty } from "./components/UI/Admin/EditProperty/EditProperty";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminView />} />
             <Route path="add-property" element={<AddProperty />} />
+            <Route path="editar/:id" element={<EditProperty />} />
             {/* <Route path="usuarios" element={<UsuariosAdmin />} />
             <Route path="propiedades" element={<PropiedadesAdmin />} /> */}
           </Route>
