@@ -1,6 +1,8 @@
 .propertyInfoDialog {
-  max-width: 800px;
+  max-width: 1000px;
   width: 95%;
+  margin: 80px auto;
+  z-index: 20000 !important;
 }
 
 .propertyInfoTitle {
@@ -71,8 +73,31 @@
   color: black;
 }
 
+.mapContainer {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Mantiene proporción 16:9 */
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 15px;
+  transition: transform 0.2s ease;
+}
 
+.mapContainer:hover {
+  transform: scale(1.02);
+}
+
+.mapContainer iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
 @media (max-width: 480px) {
+  .propertyInfoDialog {
+    width: 95%;
+    margin: 50px auto;
+  }
   .propertyInfoImg {
     height: 220px;
   }
@@ -101,5 +126,8 @@
   .propertyInfoButton {
     width: 100%;
     max-width: 250px;
+  }
+  .mapContainer {
+    aspect-ratio: 4 / 3;
   }
 }

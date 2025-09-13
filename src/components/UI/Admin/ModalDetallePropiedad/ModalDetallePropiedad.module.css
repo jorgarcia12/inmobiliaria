@@ -42,8 +42,47 @@
   width: 200px;
   height: auto;
 }
-.buttonsContainer{
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
 }
+
+.buttonClose {
+  color: white;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 6px 12px;
+  transition: 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+.buttonEdit {
+  background-color: #5a8f7b;
+  color: white;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 6px 12px;
+  transition: 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.buttonEdit:hover {
+  background-color: #77a592;
+  cursor: pointer;
+}
+
+.buttonDelete {
+  background-color: #c65d3a;
+  color: white;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 6px 12px;
+  transition: 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.buttonDelete:hover {
+  background-color: #e0775b;
+  cursor: pointer;
+}
+

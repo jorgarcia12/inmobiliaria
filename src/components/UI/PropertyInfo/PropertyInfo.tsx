@@ -26,7 +26,7 @@ export const PropertyInfo: FC<PropertyInfoProps> = ({
     <Modal
       show={show}
       onHide={onClose}
-      size="lg"
+      size="xl"
       centered
       dialogClassName={styles.propertyInfoDialog}
     >
@@ -67,6 +67,29 @@ export const PropertyInfo: FC<PropertyInfoProps> = ({
           <p className={styles.propertyInfoDescription}>
             {propiedad.descripcion}
           </p>
+          {/* MAPA */}
+          {propiedad.direccion && (
+            <div
+              className={styles.mapContainer}
+              onClick={() => {
+                const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                  `${propiedad.direccion.calle} ${propiedad.direccion.numeracion}, ${propiedad.direccion.ciudad}, ${propiedad.direccion.provincia}, ${propiedad.direccion.pais}`
+                )}`;
+                window.open(mapsUrl, "_blank");
+              }}
+            >
+              <iframe
+                title="Mapa de la propiedad"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                  `${propiedad.direccion.calle} ${propiedad.direccion.numeracion}, ${propiedad.direccion.ciudad}, ${propiedad.direccion.provincia}, ${propiedad.direccion.pais}`
+                )}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+              ></iframe>
+            </div>
+          )}
         </div>
       </Modal.Body>
 

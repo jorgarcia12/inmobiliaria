@@ -3,6 +3,7 @@ import type { IPropiedad } from "../../../../types/IPropiedad";
 import styles from "./ModalDetallePropiedad.module.css";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { usePropiedadesStore } from "../../../../store/propiedadesStore";
 
 interface ModalDetallePropiedadProps {
   propiedad: IPropiedad;
@@ -13,9 +14,18 @@ export const ModalDetallePropiedad: FC<ModalDetallePropiedadProps> = ({
   onClose,
 }) => {
   const navigate = useNavigate();
+
+  const { deleteProperty } = usePropiedadesStore();
+
   const handleEditar = () => {
     onClose();
     navigate(`/admin/editar/${propiedad.id}`);
+  };
+
+  const handleDelete = (id: number) => {
+    if (confirm("¿Estás seguro de que deseas eliminar esta propiedad?")) {
+      deleteProperty(id);
+    }
   };
   return (
     <div className={styles.detalleContainer}>
@@ -75,11 +85,23 @@ export const ModalDetallePropiedad: FC<ModalDetallePropiedadProps> = ({
         </div>
       </div>
       <div className={styles.buttonsContainer}>
-        <Button variant="secondary" size="sm" onClick={onClose}>
+        <Button
+          className={styles.buttonClose}
+          variant="dark"
+          size="sm"
+          onClick={onClose}
+        >
           Cerrar
         </Button>
-        <Button variant="secondary" size="sm" onClick={handleEditar}>
+        <Button className={styles.buttonEdit} size="sm" onClick={handleEditar}>
           Editar
+        </Button>
+        <Button
+          className={styles.buttonDelete}
+          size="sm"
+          onClick={() => handleDelete(propiedad.id!)}
+        >
+          Eliminar
         </Button>
       </div>
     </div>

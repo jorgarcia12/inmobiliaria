@@ -8,6 +8,7 @@ interface PropiedadesState {
   error: string | null;
   fetchPropiedades: () => Promise<void>;
   togglePublicada: (id: number, publicada: boolean) => Promise<void>;
+  deleteProperty: (id: number) => Promise<void>;
 }
 
 export const usePropiedadesStore = create<PropiedadesState>((set, get) => ({
@@ -35,6 +36,18 @@ export const usePropiedadesStore = create<PropiedadesState>((set, get) => ({
     } catch (err) {
       set({ error: "Error al actualizar publicada" });
       console.log("Error al actualizar publicada", err);
+    }
+  },
+
+  deleteProperty: async (id: number) => {
+    try {
+      await propiedadService.deleteProperty(id);
+      set({
+        propiedades: get().propiedades.filter((p) => p.id !== id),
+      });
+    } catch (err) {
+      set({ error: "Error al eliminar la propiedad" });
+      console.log("Error al eliminar la propiedad", err);
     }
   },
 }));

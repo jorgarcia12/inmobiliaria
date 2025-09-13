@@ -1,4 +1,3 @@
-import styles from "./MainAdmin.module.css";
 import type { IPropiedad } from "../../../../types/IPropiedad";
 import { Fragment, useEffect, useState } from "react";
 import { Button, Form, Spinner, Table } from "react-bootstrap";
@@ -17,7 +16,14 @@ export const MainAdmin = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className={styles.container}>
+    <div
+      style={{
+        padding: "20px",
+        width: "100%",
+        margin: "0 auto",
+        fontFamily: " Arial, sans-serif",
+      }}
+    >
       <h2>Listado de Propiedades</h2>
       <Table striped bordered hover responsive>
         <thead>
@@ -35,7 +41,7 @@ export const MainAdmin = () => {
         <tbody>
           {propiedades.map((prop) => (
             <Fragment key={prop.id}>
-              <tr >
+              <tr>
                 <td>{prop.id}</td>
                 <td>
                   {prop.imagenes && prop.imagenes.length > 0 ? (

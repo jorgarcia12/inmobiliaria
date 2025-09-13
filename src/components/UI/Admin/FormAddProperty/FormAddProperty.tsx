@@ -381,6 +381,38 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
           </Col>
         </Row>
 
+        //CREACION DE MAPA DE GOOGLE MAPS
+        {formData.direccion && (
+          <div
+            style={{
+              marginTop: "20px",
+              width: "100%",
+              height: "300px",
+              cursor: "pointer",
+              border: "1px solid #ccc",
+              borderRadius: "8px",
+              overflow: "hidden",
+            }}
+            onClick={() => {
+              const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                `${formData.direccion.calle} ${formData.direccion.numeracion}, ${formData.direccion.ciudad}, ${formData.direccion.provincia}, ${formData.direccion.pais}`
+              )}`;
+              window.open(mapsUrl, "_blank");
+            }}
+          >
+            <iframe
+              title="Mapa de la propiedad"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              loading="lazy"
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                `${formData.direccion.calle} ${formData.direccion.numeracion}, ${formData.direccion.ciudad}, ${formData.direccion.provincia}, ${formData.direccion.pais}`
+              )}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+            ></iframe>
+          </div>
+        )}
+
         <Form.Group className="mb-3">
           <h5 className={styles.formSubtitle}>Imágenes</h5>
           <Form.Control
