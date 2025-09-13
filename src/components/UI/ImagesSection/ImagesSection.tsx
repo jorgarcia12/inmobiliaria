@@ -2,30 +2,18 @@ import { useEffect, useState } from "react";
 import type { IPropiedad } from "../../../types/IPropiedad";
 import { PropertyCard } from "./PropertyCard";
 import { PropertyInfo } from "../PropertyInfo/PropertyInfo";
-import { propiedadService } from "../../../services/propiedadService"; // 👈 importa el servicio
-
+import { usePropiedadesStore } from "../../../store/propiedadesStore";
 export const ImagesSection = () => {
+  const { propiedades, fetchPropiedades, loading, error } =
+    usePropiedadesStore();
   const [propiedadSeleccionada, setPropiedadSeleccionada] =
     useState<IPropiedad | null>(null);
-  const [propiedades, setPropiedades] = useState<IPropiedad[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await propiedadService.getAllProperties();
-        setPropiedades(data);
-      } catch (err) {
-        console.error("Error al obtener propiedades:", err);
-        setError("No se pudieron cargar las propiedades");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+    fetchPropiedades();
   }, []);
+
+  const propiedadesHabilitadas = propiedades.filter((p) => p.publicada);
 
   return (
     <>
@@ -33,17 +21,15 @@ export const ImagesSection = () => {
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <div className="d-flex flex-wrap gap-3">
-        {propiedades.length > 0 ? (
-          propiedades.map((prop: IPropiedad) => (
-            <PropertyCard
-              key={prop.id}
-              propiedad={prop}
-              onOpenModal={() => setPropiedadSeleccionada(prop)}
-            />
-          ))
-        ) : (
-          !loading && <p>No hay propiedades cargadas</p>
-        )}
+        {propiedadesHabilitadas.length > 0
+          ? propiedadesHabilitadas.map((prop: IPropiedad) => (
+              <PropertyCard
+                key={prop.id}
+                propiedad={prop}
+                onOpenModal={() => setPropiedadSeleccionada(prop)}
+              />
+            ))
+          : !loading && <p>No hay propiedades cargadas</p>}
       </div>
 
       {propiedadSeleccionada && (

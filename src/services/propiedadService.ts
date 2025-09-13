@@ -65,4 +65,15 @@ export const propiedadService = {
       throw new Error("Error al eliminar la propiedad");
     }
   },
+
+  //HABILITAR UNA PROPIEDAD
+  togglePublicada: async (
+    id: number,
+    publicada: boolean
+  ): Promise<IPropiedad> => {
+    const { data } = await axios.patch<IPropiedad>(
+      `${API_URL}/${id}/publicar?publicada=${publicada}`
+    );
+    return data;
+  },
 };

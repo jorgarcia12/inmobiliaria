@@ -22,4 +22,5 @@ export interface IPropiedad {
   tipoPropiedad: TipoPropiedad;
   direccion: IDireccion;
   imagenes: IImagenPropiedad[];
+  publicada: boolean;
 }

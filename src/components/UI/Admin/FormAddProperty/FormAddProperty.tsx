@@ -6,7 +6,11 @@ import {
   type FormEvent,
 } from "react";
 import type { IPropiedad } from "../../../../types/IPropiedad";
-import type { Estado, TipoOperacion, TipoPropiedad } from "../../../../types/enums";
+import type {
+  Estado,
+  TipoOperacion,
+  TipoPropiedad,
+} from "../../../../types/enums";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import styles from "./FormAddProperty.module.css";
 import { cloudinaryService } from "../../../../services/cloudinaryService";
@@ -39,6 +43,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
       estado: "DISPONIBLE",
       tipoOperacion: "VENTA",
       tipoPropiedad: "CASA",
+      publicada: false,
       direccion: {
         calle: "",
         numeracion: "",
@@ -126,6 +131,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
         estado: "DISPONIBLE" as Estado,
         tipoOperacion: "VENTA" as TipoOperacion,
         tipoPropiedad: "CASA" as TipoPropiedad,
+        publicada: false,
         direccion: {
           calle: "",
           numeracion: "",
@@ -183,7 +189,9 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
           </Col>
           <Col>
             <Form.Group>
-              <Form.Label className={styles.label}>Sup. Cubierta (m²)</Form.Label>
+              <Form.Label className={styles.label}>
+                Sup. Cubierta (m²)
+              </Form.Label>
               <Form.Control
                 type="number"
                 className={styles.inputForm}
@@ -395,7 +403,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
                     className={styles.deleteImageBtn}
                     onClick={() => handleEliminarImagen(index)}
                   >
-                    <X/>
+                    <X />
                   </button>
                 </div>
               ))}

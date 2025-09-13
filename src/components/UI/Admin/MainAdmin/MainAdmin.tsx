@@ -1,34 +1,21 @@
 import styles from "./MainAdmin.module.css";
 import type { IPropiedad } from "../../../../types/IPropiedad";
 import { Fragment, useEffect, useState } from "react";
-import { propiedadService } from "../../../../services/propiedadService";
-import { Button, Spinner, Table } from "react-bootstrap";
+import { Button, Form, Spinner, Table } from "react-bootstrap";
 import { ModalDetallePropiedad } from "../ModalDetallePropiedad/ModalDetallePropiedad";
+import { usePropiedadesStore } from "../../../../store/propiedadesStore";
 
 export const MainAdmin = () => {
-  const [propiedades, setPropiedades] = useState<IPropiedad[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { propiedades, loading, error, fetchPropiedades, togglePublicada } =
+    usePropiedadesStore();
   const [propiedadSeleccionada, setPropiedadSeleccionada] =
     useState<IPropiedad | null>(null);
-
   useEffect(() => {
-    const fetchPropiedades = async () => {
-      try {
-        const data = await propiedadService.getAllProperties();
-        setPropiedades(data);
-      } catch (error) {
-        console.log("error al traer las propiedades", error);
-        setError("Error al cargar las propiedades");
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchPropiedades();
   }, []);
-
-  if (loading) return <Spinner animation="border" />;
+  if (loading) return <Spinner animation="grow" />;
   if (error) return <div>{error}</div>;
+
   return (
     <div className={styles.container}>
       <h2>Listado de Propiedades</h2>
@@ -48,7 +35,7 @@ export const MainAdmin = () => {
         <tbody>
           {propiedades.map((prop) => (
             <Fragment key={prop.id}>
-              <tr>
+              <tr >
                 <td>{prop.id}</td>
                 <td>
                   {prop.imagenes && prop.imagenes.length > 0 ? (
@@ -84,20 +71,27 @@ export const MainAdmin = () => {
                       ? "Cerrar detalle"
                       : "Ver detalle"}
                   </Button>
+                  <Form.Check
+                    type="checkbox"
+                    label="Publicada"
+                    checked={prop.publicada}
+                    onChange={(e) =>
+                      togglePublicada(prop.id!, e.target.checked)
+                    }
+                  />
                 </td>
               </tr>
-
-              {/* Fila de detalle inline */}
-              {propiedadSeleccionada?.id === prop.id && (
-                <tr>
-                  <td colSpan={8}>
-                    <ModalDetallePropiedad
-                      propiedad={propiedadSeleccionada!}
-                      onClose={() => setPropiedadSeleccionada(null)}
-                    />
-                  </td>
-                </tr>
-              )}
+              {propiedadSeleccionada?.id === prop.id &&
+                propiedadSeleccionada && (
+                  <tr>
+                    <td colSpan={8}>
+                      <ModalDetallePropiedad
+                        propiedad={propiedadSeleccionada}
+                        onClose={() => setPropiedadSeleccionada(null)}
+                      />
+                    </td>
+                  </tr>
+                )}
             </Fragment>
           ))}
         </tbody>
