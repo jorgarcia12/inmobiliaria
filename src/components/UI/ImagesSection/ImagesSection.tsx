@@ -3,15 +3,30 @@ import type { IPropiedad } from "../../../types/IPropiedad";
 import { PropertyCard } from "./PropertyCard";
 import { PropertyInfo } from "../PropertyInfo/PropertyInfo";
 import { usePropiedadesStore } from "../../../store/propiedadesStore";
-export const ImagesSection = () => {
-  const { propiedades, fetchPropiedades, loading, error } =
-    usePropiedadesStore();
+import type { FiltrosPropiedad } from "../../../types/FiltrosPropiedad";
+
+interface ImagesSectionProps {
+  filters?: FiltrosPropiedad;
+}
+
+export const ImagesSection = ({ filters }: ImagesSectionProps) => {
+  const {
+    propiedades,
+    fetchPropiedades,
+    fetchPropiedadesFiltradas,
+    loading,
+    error,
+  } = usePropiedadesStore();
   const [propiedadSeleccionada, setPropiedadSeleccionada] =
     useState<IPropiedad | null>(null);
 
   useEffect(() => {
-    fetchPropiedades();
-  }, []);
+    if (filters) {
+      fetchPropiedadesFiltradas(filters);
+    } else {
+      fetchPropiedades();
+    }
+  }, [filters]); // cada vez que cambian los filtros, vuelve a traer propiedades
 
   const propiedadesHabilitadas = propiedades.filter((p) => p.publicada);
 

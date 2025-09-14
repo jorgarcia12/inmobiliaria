@@ -1,5 +1,3 @@
-/* FilterColumn.module.css */
-
 /* Contenedor principal */
 .filterColumnWrapper {
   width: 100%;
@@ -7,191 +5,191 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  font-family: "Arial", sans-serif;
+  color: #003a33;
+  padding: 1rem;
+  box-sizing: border-box;
+  transition: transform 0.3s ease-in-out;
+  background-color: #fff; /* para drawer */
+  z-index: 999;
+}
+
+/* Cuando el panel está abierto en mobile */
+.filterColumnWrapper.open {
+  transform: translateX(0);
+}
+
+/* Cabecera */
+h3 {
+  margin-bottom: 1rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Formulario de búsqueda */
+.searchFilter {
+  width: 100%;
+  display: flex;
+  border: 2px solid #003a33;
+  border-radius: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.searchForm {
+  display: flex;
+  width: 100%;
+  max-width: 300px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  font-size: 14px;
+  outline: none;
+}
+
+.searchbutton {
+  background-color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.searchbutton:hover {
+  background-color: #f0f0f0;
+}
+
+.filterButton {
+  color: #003a33;
+}
+
+/* Botones de accion */
+.actionButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.buttonFilters {
+  background-color: #5a8f7b;
+  color: white;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 6px 12px;
+  transition: 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.buttonFilters:hover {
+  background-color: #77a592;
+  cursor: pointer;
+}
+
+/* Contenedor de filtros */
+.filtersContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 320px;
+  gap: 1rem;
+}
+
+/* Selects */
+.selectContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.selectFilter {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #003a33;
+  background-color: #fff;
+  font-size: 14px;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10'%3E%3Cpath fill='%23003a33' d='M7 10L0 0h14z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  cursor: pointer;
+}
+
+/* Slider */
+.MuiSlider-root {
+  color: #003a33;
+}
+
+
+/* Checkboxes */
+.checkboxContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.checkboxContainer .form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 /* Botón hamburguesa */
 .hamburgerButton {
   display: none;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #003a33;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  background-color: #5a8f7b;
+  border: none;
   color: white;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-weight: 600;
+  padding: 8px;
+  border-radius: 6px;
 }
 
-.hamburgerLogo {
-  height: 30px;
-  object-fit: contain;
-}
+/* Responsive */
+@media (max-width: 768px) {
+  .filterColumnWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 280px;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+  }
 
-/* Contenedor de filtros */
-.filterColumnContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  transition: max-height 0.3s ease;
-}
-
-/* Búsqueda */
-.searchFilter {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  margin: 3vh 0;
-}
-
-.searchForm {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: #ffffff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 290px;
-  border: none;
-}
-
-.searchInput {
-  margin-left: 9px;
-  border: none;
-  outline: none;
-  font-size: 15px;
-  flex: 1;
-}
-
-.searchBarContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-top: 30px;
-}
-
-.searchbutton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  border: none;
-}
-
-.searchbutton:hover {
-  background-color: #f0f0f0;
-  transition: background-color 0.3s ease;
-}
-
-.filterButton {
-  border: none;
-  color: #003a33;
-  cursor: pointer;
-}
-
-/* Cabecera de filtros */
-.filterHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 85%;
-  border-bottom: solid 1px black;
-  margin-bottom: 2vh;
-  padding-bottom: 0.5vh;
-}
-
-.filterTitle {
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Filtros dinámicos */
-.filterContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 6px 0 0 6px;
-  width: 100%;
-  padding: 0.5rem 1rem;
-}
-
-.filterContainer.checkboxContainer {
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-
-.filterContainer label {
-  margin-bottom: 6px;
-  margin-left: 6px;
-  font-weight: 700;
-  color: #003a33;
-}
-
-.filterContainer.checkboxContainer label {
-  margin-bottom: 0;
-  margin-left: 6px;
-}
-
-.selectFilter {
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: 1px solid #003a33;
-  background-color: #ffffff;
-  font-size: 12px;
-  color: #003a33;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  width: 100%;
-  max-width: 290px;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10'%3E%3Cpath fill='%233a7f6a' d='M7 10L0 0h14z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  background-size: 12px;
-}
-
-/* RESPONSIVE */
-@media (max-width: 480px) {
   .hamburgerButton {
-    display: flex;
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .filterColumnWrapper {
+    padding: 0.5rem;
+    width: 240px;
   }
 
-  .filterColumnContainer {
-    max-height: 0;
-    overflow: hidden;
+  .filtersContainer {
+    max-width: 100%;
   }
 
-  .filterColumnContainer.open {
-    max-height: 2000px; /* suficiente para mostrar todos los filtros */
-  }
-
-  .searchFilter {
-    width: 90%;
-  }
-
+  .selectFilter,
   .searchForm {
     max-width: 100%;
   }
 
-  .selectFilter {
-    max-width: 100%;
-  }
-
-  .filterContainer {
-    padding: 0.5rem 0.5rem;
-  }
-
-  .filterHeader {
-    width: 95%;
+  .checkboxContainer {
+    flex-direction: column;
   }
 }

@@ -1,12 +1,14 @@
 import { create } from "zustand";
 import type { IPropiedad } from "../types/IPropiedad";
 import { propiedadService } from "../services/propiedadService";
+import type { FiltrosPropiedad } from "../types/FiltrosPropiedad";
 
 interface PropiedadesState {
   propiedades: IPropiedad[];
   loading: boolean;
   error: string | null;
   fetchPropiedades: () => Promise<void>;
+  fetchPropiedadesFiltradas: (filters: FiltrosPropiedad) => Promise<void>;
   togglePublicada: (id: number, publicada: boolean) => Promise<void>;
   deleteProperty: (id: number) => Promise<void>;
 }
@@ -25,6 +27,18 @@ export const usePropiedadesStore = create<PropiedadesState>((set, get) => ({
       console.log("Error al cargar propiedades", err);
     }
   },
+
+  fetchPropiedadesFiltradas: async (filters: FiltrosPropiedad) => {
+  set({ loading: true, error: null });
+  try {
+    const data = await propiedadService.getFilteredProperties(filters);
+    set({ propiedades: data, loading: false });
+  } catch (error) {
+    set({ error: "Error al cargar propiedades filtradas", loading: false });
+    console.log("Error al cargar las propiedades filtradas", error);
+  }
+},
+
   togglePublicada: async (id: number, publicada: boolean) => {
     try {
       const actualizada = await propiedadService.togglePublicada(id, publicada);

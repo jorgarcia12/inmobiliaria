@@ -76,4 +76,19 @@ export const propiedadService = {
     );
     return data;
   },
+
+  // FILTRAR PROPIEDADES
+  getFilteredProperties: async (
+    filters: Record<string, string | number | boolean | undefined>
+  ): Promise<IPropiedad[]> => {
+    try {
+      const { data } = await axios.get<IPropiedad[]>(API_URL, {
+        params: filters,
+      });
+      return data;
+    } catch (error) {
+      console.error("Error al obtener propiedades filtradas", error);
+      throw new Error("Error al obtener propiedades filtradas");
+    }
+  },
 };

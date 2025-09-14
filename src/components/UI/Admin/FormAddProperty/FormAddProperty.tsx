@@ -381,7 +381,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
           </Col>
         </Row>
 
-        //CREACION DE MAPA DE GOOGLE MAPS
+       {/* CREACION DE MAPA DE GOOGLE MAPS */}
         {formData.direccion && (
           <div
             style={{
