@@ -18,14 +18,14 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
     ...filters,
   });
   const [precioRange, setPrecioRange] = useState<number[]>([
-    filters.precio_min || 0,
-    filters.precio_max || 1000000,
+    filters.precioMin || 0,
+    filters.precioMax || 1000000,
   ]);
   const [open, setOpen] = useState(false); // para el menú hamburguesa
 
   useEffect(() => {
     setLocalFilters({ ...filters });
-    setPrecioRange([filters.precio_min || 0, filters.precio_max || 1000000]);
+    setPrecioRange([filters.precioMin || 0, filters.precioMax || 1000000]);
   }, [filters]);
 
   const handleFilterChange = (
@@ -37,7 +37,9 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
       [name]:
         type === "checkbox"
           ? checked
-          : ["habitaciones", "ambientes", "banos"].includes(name)
+          : ["habitaciones", "cantidadAmbientes", "cantidadBanos"].includes(
+              name
+            )
           ? parseInt(value) || undefined
           : value,
     }));
@@ -52,8 +54,8 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
       setPrecioRange(newValue);
       setLocalFilters((prev) => ({
         ...prev,
-        precio_min: newValue[0],
-        precio_max: newValue[1],
+        precioMin: newValue[0],
+        precioMax: newValue[1],
       }));
     }
   };
@@ -63,21 +65,24 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
   const resetearFiltros = () => {
     const reset: FiltrosPropiedad = {
       search: "",
+      titulo: "",
+      precioMin: 0,
+      precioMax: 1000000,
+      tipoOperacion: "",
+      tipoPropiedad: "",
+      estado: "",
       habitaciones: undefined,
-      ambientes: undefined,
-      banos: undefined,
-      tipo_propiedad: "",
-      tipo_operacion: "",
-      precio_min: 0,
-      precio_max: 1000000,
-      barriopriv: false,
+      cantidadAmbientes: undefined,
+      cantidadBanos: undefined,
+      publicada: undefined,
+      barrioPriv: false,
       patio: false,
       cochera: false,
       permuta: false,
       servicios: false,
-      pileta: false,
       amoblado: false,
-      apt_prof: false,
+      pileta: false,
+      aptProf: false,
     };
     setLocalFilters(reset);
     setFilters(reset);
@@ -125,31 +130,31 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
               onChange={handleFilterChange}
             />
             <SelectFilter
-              name="ambientes"
+              name="cantidadAmbientes"
               placeholder="Ambientes"
               options={["1", "2", "3", "4"]}
-              value={localFilters.ambientes}
+              value={localFilters.cantidadAmbientes}
               onChange={handleFilterChange}
             />
             <SelectFilter
-              name="banos"
+              name="cantidadBanos"
               placeholder="Baños"
               options={["1", "2", "3"]}
-              value={localFilters.banos}
+              value={localFilters.cantidadBanos}
               onChange={handleFilterChange}
             />
             <SelectFilter
-              name="tipo_propiedad"
+              name="tipoPropiedad"
               placeholder="Tipo de Propiedad"
-              options={["casa", "dpto", "terreno", "local comercial", "galpon"]}
-              value={localFilters.tipo_propiedad}
+              options={["CASA", "DEPARTAMENTO", "TERRENO", "LOCAL_COMERCIAL", "GALPON"]}
+              value={localFilters.tipoPropiedad}
               onChange={handleFilterChange}
             />
             <SelectFilter
-              name="tipo_operacion"
-              placeholder="Tipo de Operacion"
-              options={["venta", "alquiler", "ambos"]}
-              value={localFilters.tipo_operacion}
+              name="tipoOperacion"
+              placeholder="Tipo de Operación"
+              options={["VENTA", "ALQUILER", "AMBOS"]}
+              value={localFilters.tipoOperacion}
               onChange={handleFilterChange}
             />
 
@@ -167,10 +172,11 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
           <div className={styles.checkboxContainer}>
             <CheckboxFilter
               label="Barrio privado"
-              name="barriopriv"
-              checked={!!localFilters.barriopriv}
+              name="barrioPriv"
+              checked={!!localFilters.barrioPriv}
               onChange={handleFilterChange}
             />
+
             <CheckboxFilter
               label="Patio"
               name="patio"
@@ -209,8 +215,8 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
             />
             <CheckboxFilter
               label="Apto Profesional"
-              name="apt_prof"
-              checked={!!localFilters.apt_prof}
+              name="aptProf"
+              checked={!!localFilters.aptProf}
               onChange={handleFilterChange}
             />
           </div>

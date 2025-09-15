@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { IPropiedad } from "../types/IPropiedad";
+import type { FiltrosPropiedad } from "../types/FiltrosPropiedad";
 
 const API_URL = "http://localhost:8080/propiedad";
 
@@ -13,6 +14,23 @@ export const propiedadService = {
       console.error("Error al obtener propiedades:", error);
       throw new Error("Error al obtener propiedades");
     }
+  },
+  // FILTRAR PROPIEDADES
+  filterProperties: async (
+    filtros: FiltrosPropiedad
+  ): Promise<IPropiedad[]> => {
+    const queryParams = new URLSearchParams();
+
+    Object.entries(filtros).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== "") {
+        queryParams.append(key, value.toString());
+      }
+    });
+
+    const url = `${API_URL}/filtros?${queryParams.toString()}`;
+    console.log("URL que se va a llamar:", url); // Para depurar en la consola
+    const { data } = await axios.get<IPropiedad[]>(url);
+    return data;
   },
 
   //OBTENER UNA PROPIEDAD POR ID
@@ -75,20 +93,5 @@ export const propiedadService = {
       `${API_URL}/${id}/publicar?publicada=${publicada}`
     );
     return data;
-  },
-
-  // FILTRAR PROPIEDADES
-  getFilteredProperties: async (
-    filters: Record<string, string | number | boolean | undefined>
-  ): Promise<IPropiedad[]> => {
-    try {
-      const { data } = await axios.get<IPropiedad[]>(API_URL, {
-        params: filters,
-      });
-      return data;
-    } catch (error) {
-      console.error("Error al obtener propiedades filtradas", error);
-      throw new Error("Error al obtener propiedades filtradas");
-    }
   },
 };

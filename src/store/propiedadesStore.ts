@@ -2,6 +2,7 @@ import { create } from "zustand";
 import type { IPropiedad } from "../types/IPropiedad";
 import { propiedadService } from "../services/propiedadService";
 import type { FiltrosPropiedad } from "../types/FiltrosPropiedad";
+import { cleanFilters } from "../utils/cleanFilters";
 
 interface PropiedadesState {
   propiedades: IPropiedad[];
@@ -29,15 +30,20 @@ export const usePropiedadesStore = create<PropiedadesState>((set, get) => ({
   },
 
   fetchPropiedadesFiltradas: async (filters: FiltrosPropiedad) => {
-  set({ loading: true, error: null });
-  try {
-    const data = await propiedadService.getFilteredProperties(filters);
-    set({ propiedades: data, loading: false });
-  } catch (error) {
-    set({ error: "Error al cargar propiedades filtradas", loading: false });
-    console.log("Error al cargar las propiedades filtradas", error);
-  }
-},
+    set({ loading: true, error: null });
+    try {
+      // Limpiamos los filtros antes de enviarlos
+      const filtrosLimpios = cleanFilters(filters);
+      console.log("Filtros limpios enviados al servicio:", filtrosLimpios);
+      // Llamamos al servicio que usa Axios
+      const data = await propiedadService.filterProperties(filtrosLimpios);
+
+      set({ propiedades: data, loading: false });
+    } catch (error) {
+      set({ error: "Error al cargar propiedades filtradas", loading: false });
+      console.error("Error al cargar las propiedades filtradas", error);
+    }
+  },
 
   togglePublicada: async (id: number, publicada: boolean) => {
     try {

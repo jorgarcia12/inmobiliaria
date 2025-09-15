@@ -18,7 +18,7 @@ export const cloudinaryService = {
       `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
       formData
     );
-
+    console.log("Imagen subida");
     return { url: response.data.secure_url };
   },
 };

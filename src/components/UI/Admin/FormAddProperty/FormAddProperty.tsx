@@ -16,6 +16,7 @@ import styles from "./FormAddProperty.module.css";
 import { cloudinaryService } from "../../../../services/cloudinaryService";
 import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
+import { toBool } from "../../../../utils/boolToString";
 
 interface IFormAddPropertyProps {
   propiedadInicial?: IPropiedad; // si existe, se está editando
@@ -29,6 +30,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
   onSubmit,
 }) => {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState<IPropiedad>(
     propiedadInicial || {
       id: undefined,
@@ -44,20 +46,39 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
       tipoOperacion: "VENTA",
       tipoPropiedad: "CASA",
       publicada: false,
+      patio: false,
+      cochera: false,
+      permuta: false,
+      servicios: false,
+      amoblado: false,
+      pileta: false,
+      aptProf: false,
+      barrioPriv: false,
       direccion: {
         calle: "",
         numeracion: "",
         ciudad: "",
         provincia: "",
         pais: "",
-        codPostal: "",
       },
       imagenes: [],
     }
   );
 
   useEffect(() => {
-    if (propiedadInicial) setFormData(propiedadInicial);
+    if (propiedadInicial) {
+      setFormData({
+        ...propiedadInicial,
+        patio: toBool(propiedadInicial.patio),
+        cochera: toBool(propiedadInicial.cochera),
+        permuta: toBool(propiedadInicial.permuta),
+        servicios: toBool(propiedadInicial.servicios),
+        amoblado: toBool(propiedadInicial.amoblado),
+        pileta: toBool(propiedadInicial.pileta),
+        aptProf: toBool(propiedadInicial.aptProf),
+        barrioPriv: toBool(propiedadInicial.barrioPriv),
+      });
+    }
   }, [propiedadInicial]);
 
   const handleChange = (
@@ -132,13 +153,20 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
         tipoOperacion: "VENTA" as TipoOperacion,
         tipoPropiedad: "CASA" as TipoPropiedad,
         publicada: false,
+        patio: false,
+        cochera: false,
+        permuta: false,
+        servicios: false,
+        amoblado: false,
+        pileta: false,
+        aptProf: false,
+        barrioPriv: false,
         direccion: {
           calle: "",
           numeracion: "",
           ciudad: "",
           provincia: "",
           pais: "",
-          codPostal: "",
         },
         imagenes: [],
       });
@@ -287,22 +315,123 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
               </Form.Select>
             </Form.Group>
           </Col>
-          <Col>
-            <Form.Group>
-              <Form.Label className={styles.label}>Estado</Form.Label>
-              <Form.Select
-                className={styles.inputForm}
-                name="estado"
-                value={formData.estado}
-                onChange={handleChange}
-              >
-                <option value="DISPONIBLE">Disponible</option>
-                <option value="VENDIDO">Vendido</option>
-                <option value="ALQUILADO">Alquilado</option>
-                <option value="RESERVADO">Reservado</option>
-              </Form.Select>
-            </Form.Group>
-          </Col>
+
+          <Form.Group>
+            <Form.Label className={styles.label}>Estado</Form.Label>
+            <Form.Select
+              className={styles.inputForm}
+              name="estado"
+              value={formData.estado}
+              onChange={handleChange}
+            >
+              <option value="DISPONIBLE">Disponible</option>
+              <option value="VENDIDO">Vendido</option>
+              <option value="ALQUILADO">Alquilado</option>
+              <option value="RESERVADO">Reservado</option>
+            </Form.Select>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <h5 className={styles.formSubtitle}>Extras</h5>
+            <div className={styles.extrasContainer}>
+              <Form.Check
+                type="checkbox"
+                label="Patio"
+                name="patio"
+                checked={!!formData.patio || false}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    patio: e.target.checked,
+                  }))
+                }
+              />
+
+              <Form.Check
+                type="checkbox"
+                label="Cochera"
+                name="cochera"
+                checked={!!formData.cochera || false}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    cochera: e.target.checked,
+                  }))
+                }
+              />
+              <Form.Check
+                type="checkbox"
+                label="Permuta"
+                name="permuta"
+                checked={!!formData.permuta || false}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    permuta: e.target.checked,
+                  }))
+                }
+              />
+              <Form.Check
+                type="checkbox"
+                label="Servicios"
+                name="servicios"
+                checked={!!formData.servicios || false}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    servicios: e.target.checked,
+                  }))
+                }
+              />
+              <Form.Check
+                type="checkbox"
+                label="Amoblado"
+                name="amoblado"
+                checked={!!formData.amoblado || false}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    amoblado: e.target.checked,
+                  }))
+                }
+              />
+              <Form.Check
+                type="checkbox"
+                label="Pileta"
+                name="pileta"
+                checked={!!formData.pileta || false}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    pileta: e.target.checked,
+                  }))
+                }
+              />
+              <Form.Check
+                type="checkbox"
+                label="Apto Profesional"
+                name="aptProf"
+                checked={!!formData.aptProf || false}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    aptProf: e.target.checked,
+                  }))
+                }
+              />
+              <Form.Check
+                type="checkbox"
+                label="Barrio Privado"
+                name="barrioPriv"
+                checked={!!formData.barrioPriv || false}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    barrioPriv: e.target.checked,
+                  }))
+                }
+              />
+            </div>
+          </Form.Group>
         </Row>
       </div>
 
@@ -368,20 +497,10 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
               />
             </Form.Group>
           </Col>
-          <Col>
-            <Form.Group>
-              <Form.Label className={styles.label}>Código Postal</Form.Label>
-              <Form.Control
-                className={styles.inputForm}
-                name="codPostal"
-                value={formData.direccion?.codPostal || ""}
-                onChange={handleDireccionChange}
-              />
-            </Form.Group>
-          </Col>
+          <Col></Col>
         </Row>
 
-       {/* CREACION DE MAPA DE GOOGLE MAPS */}
+        {/* CREACION DE MAPA DE GOOGLE MAPS */}
         {formData.direccion && (
           <div
             style={{

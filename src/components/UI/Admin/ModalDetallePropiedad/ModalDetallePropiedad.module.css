@@ -2,33 +2,62 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  width: 100%;
 }
-.dataContainer {
+.infoContainer{
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
   gap: 20px;
-  margin: 15px;
 }
-.descripcionContainer {
-  width: 600px;
-  max-height: 150px;
-  overflow-y: scroll;
-}
-.propInfo {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 10px;
-}
+/* Contenedor de carrusel + descripción */
 .imgYDescContainer {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: column; /* horizontal: carrusel a la izquierda, descripción a la derecha */
+  gap: 20px;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
+  margin: 15px 0;
 }
+
+/* Contenedor del carrusel */
+.carouselContainer {
+  max-width: 600px;
+  max-height: 300px;
+}
+
+.carouselImg {
+  min-width: 600px;
+  max-width: 600px;
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+/* Contenedor de tabla */
+.tableDetalle {
+  width: 100%;
+  table-layout: fixed; 
+  margin-bottom: 10px;
+}
+
+.tableDetalle td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 5px 10px;
+  word-wrap: break-word;
+}
+
+/* Contenedor de descripción */
+.descripcionContainer {
+  width: 600px; /* más pequeña que el carrusel */
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Carrusel de miniaturas (opcional) */
 .imgsContainer {
   display: flex;
   flex-direction: row;
@@ -38,10 +67,13 @@
   overflow-x: scroll;
   padding-bottom: 10px;
 }
+
 .imgDetalleAdmin {
   width: 200px;
   height: auto;
 }
+
+/* Botones */
 .buttonsContainer {
   display: flex;
   flex-direction: row;
@@ -57,7 +89,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-
 .buttonEdit {
   background-color: #5a8f7b;
   color: white;
@@ -67,6 +98,7 @@
   transition: 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
 .buttonEdit:hover {
   background-color: #77a592;
   cursor: pointer;
@@ -81,8 +113,8 @@
   transition: 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
 .buttonDelete:hover {
   background-color: #e0775b;
   cursor: pointer;
 }
-

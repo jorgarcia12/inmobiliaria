@@ -6,7 +6,7 @@ export interface IDireccion {
   barrio?: string;
   ciudad: string;
   provincia: string;
-  codPostal: string;
+  
   pais?: string;
   lat?: number;
   lon?: number;

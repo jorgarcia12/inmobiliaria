@@ -23,4 +23,12 @@ export interface IPropiedad {
   direccion: IDireccion;
   imagenes: IImagenPropiedad[];
   publicada: boolean;
+  patio: boolean;
+  cochera: boolean;
+  permuta: boolean;
+  servicios: boolean;
+  amoblado: boolean;
+  pileta: boolean;
+  aptProf: boolean;
+  barrioPriv: boolean;
 }

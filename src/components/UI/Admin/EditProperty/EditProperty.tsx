@@ -32,7 +32,11 @@ export const EditProperty = () => {
   const handleUpdate = async (propiedadActualizada: IPropiedad) => {
     if (!id) return;
     try {
-      await propiedadService.updateProperty(Number(id), propiedadActualizada);
+      const updated = await propiedadService.updateProperty(
+        Number(id),
+        propiedadActualizada
+      );
+      console.log("Respuesta del update:", updated);
       navigate("/admin");
     } catch (error) {
       alert("Error al actualizar la propiedad");
@@ -43,7 +47,7 @@ export const EditProperty = () => {
   if (error) return <Alert variant="danger">{error}</Alert>;
 
   return (
-    <div style={{overflowX:"hidden"}}>
+    <div style={{ overflowX: "hidden" }}>
       <h2>Editar Propiedad</h2>
       {propiedad && (
         <FormAddProperty
