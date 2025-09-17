@@ -8,7 +8,7 @@ import { Menu, X } from "lucide-react";
 export const NavBar = () => {
   const navigate = useNavigate();
   const handleLogin = () => {
-    navigate("/admin");
+    navigate("/auth/login");
   };
 
   const [isOpen, setIsOpen] = useState(false);

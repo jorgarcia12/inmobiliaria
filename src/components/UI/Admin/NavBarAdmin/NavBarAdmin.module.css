@@ -3,6 +3,7 @@
   flex-direction: row;
   background-color: #db703b;
   justify-content: space-between;
+  height: 80px;
 }
 
 .logoContainer img {
@@ -24,20 +25,22 @@
   margin: 10px;
   gap: 1vw;
 }
+
 .buttonAddProperty {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  height: 50px;
+  width: auto;
   gap: 10px;
   border: none;
   border-radius: 0.4rem;
   padding: 10px;
-  background-color: #3a3a3a;
   color: white;
   transition: 0.2s ease;
 }
-.buttonAddProperty:hover {
-  cursor: pointer;
-  background-color: #4f4f4f;
+.buttonLogout{
+height: 50px;
+width: 50px;
 }

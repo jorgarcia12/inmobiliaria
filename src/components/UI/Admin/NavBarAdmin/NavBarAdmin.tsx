@@ -23,10 +23,14 @@ export const NavBarAdmin = () => {
         <img src={logo} alt="logo-casaGarita" />
       </div>
       <div className={styles.buttonsContainer}>
-        <Button className={styles.buttonAddProperty} onClick={handleNavigate}>
+        <Button
+          variant="dark"
+          className={styles.buttonAddProperty}
+          onClick={handleNavigate}
+        >
           Agregar Propiedad <Plus />
         </Button>
-        <Button className={styles.buttonAddProperty}>
+        <Button variant="dark" className={styles.buttonLogout}>
           <LogOut onClick={handleLogout} />
         </Button>
       </div>

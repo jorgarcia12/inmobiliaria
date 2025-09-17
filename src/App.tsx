@@ -8,6 +8,7 @@ import { PublicLayout } from "./views/PublicLayout/PublicLayout";
 import { AdminView } from "./views/AdminView/AdminView";
 import { AddProperty } from "./components/UI/Admin/AddProperty/AddProperty";
 import { EditProperty } from "./components/UI/Admin/EditProperty/EditProperty";
+import { LoginView } from "./views/AuthView/LoginView/LoginView";
 
 function App() {
   return (
@@ -17,10 +18,10 @@ function App() {
           {/* Layout para las rutas publicas */}
           <Route element={<PublicLayout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/propiedades" element={<Properties />}>
-              {/* ruta relativa */}
-            </Route>
+            <Route path="/propiedades" element={<Properties />} />
           </Route>
+          
+            <Route path="/auth/login" element={<LoginView />} />
 
           {/* Layout para las rutas de admin */}
           <Route path="/admin" element={<AdminLayout />}>

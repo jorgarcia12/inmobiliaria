@@ -51,15 +51,21 @@ h4 {
 .contactContainer {
   display: flex;
   flex-direction: column;
+
   gap: 0.5rem;
+  margin-right: 60px;
 }
 
-.contactContainer p {
+.contactContainer a {
   display: flex;
   align-items: center;
+  width: 300px;
   gap: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  color: white;
+  list-style: none;
+  text-decoration: none;
 }
 
 .socialContainer {
@@ -67,22 +73,24 @@ h4 {
   flex-direction: column;
   gap: 0.5rem;
 }
-.socialContainer p {
+.socialContainer a {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  color: white;
+  list-style: none;
+  text-decoration: none;
 }
 
-.socialContainer p:hover {
+.socialContainer a:hover {
   font-weight: 600;
-  scale: 1.01;
+  scale: 1;
 }
 
-.contactContainer p:hover {
+.contactContainer a:hover {
   font-weight: 600;
-  scale: 1.01;
 }
 
 @media (max-width: 480px) {
@@ -106,5 +114,6 @@ h4 {
   .contactContainer,
   .socialContainer {
     align-items: center;
+    justify-content: center;
   }
 }
