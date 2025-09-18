@@ -55,7 +55,7 @@ export const SideBarAdmin = () => {
               sx={{ cursor: "pointer", mb: 2, borderBottom: "1px solid" }}
               className={styles.buttonAction}
             >
-              Listar
+              Todas las propiedades
             </Typography>
 
             <Typography
@@ -64,14 +64,7 @@ export const SideBarAdmin = () => {
               className={styles.buttonAction}
               onClick={handleNavFeatured}
             >
-              Destacadas
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ cursor: "pointer", borderBottom: "1px solid" }}
-              className={styles.buttonAction}
-            >
-              Categorías
+              Propiedades Destacadas
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -100,7 +93,7 @@ export const SideBarAdmin = () => {
               className={styles.buttonAction}
               onClick={handleGoUsers}
             >
-              Listar
+              Todos los Usuarios
             </Typography>
             <Typography
               variant="body2"
@@ -108,7 +101,7 @@ export const SideBarAdmin = () => {
               className={styles.buttonAction}
               onClick={handleGoAddUsers}
             >
-              Agregar
+              Agregar Usuario
             </Typography>
             <Typography
               variant="body2"

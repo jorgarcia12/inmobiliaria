@@ -1,0 +1,95 @@
+
+.formContainer {
+  max-width: 80vw;
+  margin: 20px auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+  box-sizing: border-box;
+}
+.column{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+/* Grupos de inputs */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Labels */
+.formLabel {
+  font-weight: 600;
+  color: #333333;
+}
+
+/* Inputs */
+.formInput {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.formInput:focus {
+  border-color: #db703b;
+  box-shadow: 0 0 5px rgba(219, 112, 59, 0.4);
+  outline: none;
+}
+
+/* Selects */
+.formSelect {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.formSelect:focus {
+  border-color: #db703b;
+  box-shadow: 0 0 5px rgba(219, 112, 59, 0.4);
+  outline: none;
+}
+
+/* Botón de submit */
+.submitButton {
+  padding: 10px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background-color: #db703b;
+  border: none;
+  border-radius: 10px;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #b85b2f;
+  transform: translateY(-2px);
+}
+
+/* Para inputs de contraseña, mismo estilo que los demás */
+.passwordInput {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.passwordInput:focus {
+  border-color: #db703b;
+  box-shadow: 0 0 5px rgba(219, 112, 59, 0.4);
+  outline: none;
+}
+
