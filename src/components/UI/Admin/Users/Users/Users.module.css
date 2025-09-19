@@ -1,0 +1,54 @@
+/* Contenedor principal */
+.usersContainer {
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+  background-color: #f8f9fa; /* gris clarito de fondo */
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Título */
+.usersContainer h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 600;
+  font-size: 28px;
+}
+
+/* Tabla */
+.usersContainer table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Cabecera */
+.usersContainer thead tr {
+  background: linear-gradient(135deg, #4ade80, #22c55e); /* verde degradé */
+  color: #fff;
+  text-align: left;
+  font-weight: 600;
+}
+
+.usersContainer thead th {
+  padding: 12px 15px;
+}
+
+/* Filas */
+.usersContainer tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background 0.3s;
+}
+
+.usersContainer tbody tr:hover {
+  background-color: #f1f5f9; /* gris claro al hover */
+}
+
+.usersContainer tbody td {
+  padding: 12px 15px;
+  color: #334155;
+}

@@ -10,6 +10,8 @@ import { AddProperty } from "./components/UI/Admin/AddProperty/AddProperty";
 import { EditProperty } from "./components/UI/Admin/EditProperty/EditProperty";
 import { LoginView } from "./views/AuthView/LoginView/LoginView";
 import { CreateUserForm } from "./components/UI/Admin/Users/CreateUserForm/CreateUserForm";
+import { UsersView } from "./views/UsersView/UsersView";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -30,11 +32,23 @@ function App() {
             <Route path="add-property" element={<AddProperty />} />
             <Route path="editar/:id" element={<EditProperty />} />
             <Route path="users/add-user" element={<CreateUserForm />} />
+
+            <Route path="users" element={<UsersView />} />
             {/* <Route path="usuarios" element={<UsuariosAdmin />} />
             <Route path="propiedades" element={<PropiedadesAdmin />} /> */}
           </Route>
         </Routes>
       </BrowserRouter>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000} // cierra automáticamente en 3s
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="colored"
+      />
     </>
   );
 }

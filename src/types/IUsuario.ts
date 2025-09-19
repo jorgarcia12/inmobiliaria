@@ -7,6 +7,7 @@ export interface IUsuario {
   email: string;
   telefono: string;
   rol: Rol;
+  username: string;
   password: string;
   fechaNacimiento: Date;
   fechaAlta: Date;

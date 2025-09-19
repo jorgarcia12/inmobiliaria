@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import type { Rol } from "../../../../../types/enums";
 import { generarUsername } from "../../../../../utils/createUsername";
-import { usuarioService } from "../../../../../services/usuarioService";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 
 import styles from "./CreateUserForm.tsx.module.css";
+import { authService } from "../../../../../services/authService";
+import { useNavigate } from "react-router-dom";
 
 export const CreateUserForm = () => {
   const [nombre, setNombre] = useState("");
@@ -26,12 +27,12 @@ export const CreateUserForm = () => {
       setUsername("");
     }
   }, [nombre, apellido]);
-
+  const navigate = useNavigate()
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      await usuarioService.createUsuario({
+      await authService.register(
         nombre,
         apellido,
         email,
@@ -39,8 +40,8 @@ export const CreateUserForm = () => {
         rol,
         fechaNacimiento,
         username,
-        password,
-      });
+        password
+      );
 
       alert("Usuario creado correctamente!");
 
@@ -54,6 +55,9 @@ export const CreateUserForm = () => {
       setUsername("");
       setPassword("");
       setConfirmPassword("");
+
+
+      navigate("/admin")
     } catch (error) {
       console.error(error);
       alert("Hubo un error al crear el usuario.");

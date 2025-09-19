@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { LoginPhoto } from "../../../components/UI/Login/LoginPhoto/LoginPhoto";
 import { LoginForm } from "../../../components/UI/Login/LoginForm/LoginForm";
 import { authService } from "../../../services/authService";
+import { usuarioStore } from "../../../store/usuarioStore";
+import { toast } from "react-toastify";
 export const LoginView = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
+  const { setUsuarioLogueado } = usuarioStore();
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -20,11 +22,14 @@ export const LoginView = () => {
     }
     try {
       const data = await authService.login(username, password);
+      console.log(data);
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("user", JSON.stringify(data.username));
+      setUsuarioLogueado(data.username);
 
       setError("");
       navigate("/admin");
+      toast("Bienvenido! " + data.username.nombre)
     } catch (err) {
       setError("Usuario o contraseña incorrectos");
       console.log("Usuario o contraseña incorrectos", err);

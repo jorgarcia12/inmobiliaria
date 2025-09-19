@@ -54,6 +54,7 @@ export const SideBarAdmin = () => {
               variant="body2"
               sx={{ cursor: "pointer", mb: 2, borderBottom: "1px solid" }}
               className={styles.buttonAction}
+              onClick={()=>navigate("/admin")}
             >
               Todas las propiedades
             </Typography>

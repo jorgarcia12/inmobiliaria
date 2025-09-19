@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { Rol } from "../types/enums";
 
 const API_URL = import.meta.env.VITE_API_URL + "/auth";
 
@@ -10,8 +11,23 @@ export const authService = {
     });
     return data;
   },
-  register: async (username: string, password: string) => {
+  register: async (
+    nombre: string,
+    apellido: string,
+    email: string,
+    telefono: string,
+    rol: Rol,
+    fechaNacimiento: string,
+    username: string,
+    password: string
+  ) => {
     const { data } = await axios.post(`${API_URL}/register`, {
+      nombre,
+      apellido,
+      email,
+      telefono,
+      rol,
+      fechaNacimiento,
       username,
       password,
     });
