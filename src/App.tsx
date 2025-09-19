@@ -32,19 +32,15 @@ function App() {
             <Route path="add-property" element={<AddProperty />} />
             <Route path="editar/:id" element={<EditProperty />} />
             <Route path="users/add-user" element={<CreateUserForm />} />
-
-            <Route path="users" element={<UsersView />} />
-            {/* <Route path="usuarios" element={<UsuariosAdmin />} />
-            <Route path="propiedades" element={<PropiedadesAdmin />} /> */}
+            <Route path="users" element={<UsersView />} />            
           </Route>
         </Routes>
       </BrowserRouter>
       <ToastContainer
         position="top-right"
-        autoClose={3000} // cierra automáticamente en 3s
+        autoClose={2000} 
         hideProgressBar={false}
         newestOnTop
-        closeOnClick
         pauseOnHover
         draggable
         theme="colored"

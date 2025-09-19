@@ -6,6 +6,7 @@ import { CarruselYDescripicon } from "./CarruselYDescripicon";
 import { useNavigate } from "react-router-dom";
 import { usePropiedadesStore } from "../../../../store/propiedadesStore";
 import { TablaDetalllePropiedad } from "./TablaDetalllePropiedad";
+import { confirmToast } from "../../../../utils/confirmToast";
 
 interface ModalDetallePropiedadProps {
   propiedad: IPropiedad;
@@ -25,9 +26,12 @@ export const ModalDetallePropiedad: FC<ModalDetallePropiedadProps> = ({
   };
 
   const handleDelete = (id: number) => {
-    if (confirm("¿Estás seguro de que deseas eliminar esta propiedad?")) {
-      deleteProperty(id);
-    }
+    confirmToast({
+      message: "¿Estás seguro de que deseas eliminar esta propiedad?",
+      onConfirm: async () => {
+        await deleteProperty(id);
+      },
+    });
   };
   return (
     <div className={styles.detalleContainer}>

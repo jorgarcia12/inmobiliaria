@@ -4,6 +4,7 @@ import type { IPropiedad } from "../../../../types/IPropiedad";
 import { propiedadService } from "../../../../services/propiedadService";
 import { Alert, Spinner } from "react-bootstrap";
 import { FormAddProperty } from "../FormAddProperty/FormAddProperty";
+import { toast } from "react-toastify";
 
 export const EditProperty = () => {
   const { id } = useParams<{ id: string }>();
@@ -38,6 +39,7 @@ export const EditProperty = () => {
       );
       console.log("Respuesta del update:", updated);
       navigate("/admin");
+      toast.success("Propiedad Acualizada!")
     } catch (error) {
       alert("Error al actualizar la propiedad");
       console.error("Error al actualizar la propiedad", error);

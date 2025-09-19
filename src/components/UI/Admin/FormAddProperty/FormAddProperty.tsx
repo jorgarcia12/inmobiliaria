@@ -17,6 +17,7 @@ import { cloudinaryService } from "../../../../services/cloudinaryService";
 import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import { toBool } from "../../../../utils/boolToString";
+import { toast } from "react-toastify";
 
 interface IFormAddPropertyProps {
   propiedadInicial?: IPropiedad; // si existe, se está editando
@@ -131,8 +132,10 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
     if (!formData.titulo || !formData.descripcion) return;
 
     try {
-      await onSubmit(formData); // enviar al backend
+      await onSubmit(formData);
+      // enviar al backend
       navigate("/admin"); // redirigir después de crear/editar
+      toast.success("Propiedad guardada!");
     } catch (error) {
       console.error("Error al guardar propiedad:", error);
       alert("Error al guardar propiedad");
