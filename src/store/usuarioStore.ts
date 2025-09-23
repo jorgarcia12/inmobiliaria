@@ -17,6 +17,7 @@ interface UsuarioState {
 
   setUsuarioLogueado: (usuario: IUsuario | null) => void;
   setUsuarioSeleccionado: (usuario: IUsuario | null) => void;
+  logout: () => void;
 }
 
 const usuarioGuardado = localStorage.getItem("user");
@@ -93,4 +94,9 @@ export const usuarioStore = create<UsuarioState>((set, get) => ({
   },
   setUsuarioLogueado: (usuario) => set({ usuarioLogueado: usuario }),
   setUsuarioSeleccionado: (usuario) => set({ usuarioSeleccionado: usuario }),
+
+  logout: () => {
+    set({ usuarioLogueado: null });
+    localStorage.removeItem("user");
+  },
 }));

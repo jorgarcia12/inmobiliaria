@@ -8,13 +8,13 @@ import { usuarioStore } from "../../../../store/usuarioStore";
 export const NavBarAdmin = () => {
   const navigate = useNavigate();
 
-  const { usuarioLogueado } = usuarioStore();
+  const { usuarioLogueado, logout } = usuarioStore();
   const handleNavigate = () => {
     navigate("/admin/add-property");
   };
   const handleLogout = () => {
-    usuarioStore.getState().setUsuarioLogueado(null);
-    navigate("/");
+    logout();
+    setTimeout(() => navigate("/", { replace: true }), 0);
   };
   return (
     <div className={styles.navBarAdminContainer}>
