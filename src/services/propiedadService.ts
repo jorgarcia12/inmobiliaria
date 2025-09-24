@@ -2,7 +2,7 @@ import axios from "axios";
 import type { IPropiedad } from "../types/IPropiedad";
 import type { FiltrosPropiedad } from "../types/FiltrosPropiedad";
 
-const API_URL = "http://localhost:8080/propiedad";
+const API_URL = import.meta.env.VITE_API_URL + "/propiedad";
 
 export const propiedadService = {
   //OBTENER TODAS LAS PROPIEDADES

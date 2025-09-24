@@ -153,7 +153,7 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
             <SelectFilter
               name="tipoOperacion"
               placeholder="Tipo de Operación"
-              options={["VENTA", "ALQUILER", "AMBOS"]}
+              options={["VENTA", "ALQUILER"]}
               value={localFilters.tipoOperacion}
               onChange={handleFilterChange}
             />

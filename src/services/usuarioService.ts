@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "../interceptors/api.interceptor";
 import type { IUsuario } from "../types/IUsuario";
 
 const API_URL = import.meta.env.VITE_API_URL + "/usuario";
@@ -13,12 +14,11 @@ interface UsuarioCreate {
   fechaNacimiento?: Date;
   password?: string;
 }
-
 export const usuarioService = {
-  //CREAR USUARIO
+  // CREAR USUARIO
   createUsuario: async (usuario: UsuarioCreate) => {
     try {
-      const res = await axios.post(API_URL, usuario, {
+      const res = await api.post(API_URL, usuario, {
         headers: { "Content-Type": "application/json" },
       });
       return res.data;
@@ -35,10 +35,10 @@ export const usuarioService = {
     }
   },
 
-  //OBTENER TODOS LOS USUARIOS
+  // OBTENER TODOS LOS USUARIOS
   getAllUsers: async (): Promise<IUsuario[]> => {
     try {
-      const res = await axios.get(API_URL);
+      const res = await api.get(API_URL);
       return res.data;
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
@@ -53,25 +53,26 @@ export const usuarioService = {
     }
   },
 
-  //ACTUALIZAR UN USUARIO
+  // ACTUALIZAR UN USUARIO
   updateUsuario: async (
     id: number,
     usuario: Partial<IUsuario>
   ): Promise<IUsuario> => {
-    const res = await axios.put(`${API_URL}/${id}`, usuario, {
+    const res = await api.put(`${API_URL}/${id}`, usuario, {
       headers: { "Content-Type": "application/json" },
     });
     return res.data;
   },
-  //ELIMINAR UN USUARIO
+
+  // ELIMINAR UN USUARIO
   deleteUsuario: async (id: number): Promise<void> => {
-    await axios.delete(`${API_URL}/${id}`);
+    await api.delete(`${API_URL}/${id}`);
   },
 
-  //ACTUALIZAR EL USUARIO ACTIVO
+  // ACTUALIZAR EL USUARIO ACTIVO
   updateActivo: async (id: number, activo: boolean) => {
     try {
-      const res = await axios.patch(`${API_URL}/${id}/activo`, { activo });
+      const res = await api.patch(`${API_URL}/${id}/activo`, { activo });
       return res.data;
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {

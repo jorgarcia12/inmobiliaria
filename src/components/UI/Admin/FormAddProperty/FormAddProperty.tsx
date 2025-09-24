@@ -1,10 +1,4 @@
-import {
-  useState,
-  useEffect,
-  type ChangeEvent,
-  type FC,
-  type FormEvent,
-} from "react";
+import { useState, type ChangeEvent, type FC, type FormEvent } from "react";
 import type { IPropiedad } from "../../../../types/IPropiedad";
 import type {
   Estado,
@@ -16,8 +10,8 @@ import styles from "./FormAddProperty.module.css";
 import { cloudinaryService } from "../../../../services/cloudinaryService";
 import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
-import { toBool } from "../../../../utils/boolToString";
 import { toast } from "react-toastify";
+import { imagenPropiedadService } from "../../../../services/imagenPropiedadService";
 
 interface IFormAddPropertyProps {
   propiedadInicial?: IPropiedad; // si existe, se está editando
@@ -32,55 +26,62 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState<IPropiedad>(
-    propiedadInicial || {
-      id: undefined,
-      titulo: "",
-      descripcion: "",
-      precio: 0,
-      supCubierta: 0,
-      supTotal: 0,
-      cantidadHabitaciones: 0,
-      cantidadAmbientes: 0,
-      cantidadBanos: 0,
-      estado: "DISPONIBLE",
-      tipoOperacion: "VENTA",
-      tipoPropiedad: "CASA",
-      publicada: false,
-      patio: false,
-      cochera: false,
-      permuta: false,
-      servicios: false,
-      amoblado: false,
-      pileta: false,
-      aptProf: false,
-      barrioPriv: false,
-      direccion: {
-        calle: "",
-        numeracion: "",
-        ciudad: "",
-        provincia: "",
-        pais: "",
-      },
-      imagenes: [],
-    }
-  );
+  const extras = [
+    { key: "patio", label: "Patio" },
+    { key: "cochera", label: "Cochera" },
+    { key: "permuta", label: "Permuta" },
+    { key: "servicios", label: "Servicios" },
+    { key: "amoblado", label: "Amoblado" },
+    { key: "pileta", label: "Pileta" },
+    { key: "aptProf", label: "Apto Profesional" },
+    { key: "barrioPriv", label: "Barrio Privado" },
+  ];
 
-  useEffect(() => {
-    if (propiedadInicial) {
-      setFormData({
-        ...propiedadInicial,
-        patio: toBool(propiedadInicial.patio),
-        cochera: toBool(propiedadInicial.cochera),
-        permuta: toBool(propiedadInicial.permuta),
-        servicios: toBool(propiedadInicial.servicios),
-        amoblado: toBool(propiedadInicial.amoblado),
-        pileta: toBool(propiedadInicial.pileta),
-        aptProf: toBool(propiedadInicial.aptProf),
-        barrioPriv: toBool(propiedadInicial.barrioPriv),
-      });
-    }
-  }, [propiedadInicial]);
+  const [formData, setFormData] = useState<IPropiedad>(
+    propiedadInicial
+      ? {
+          ...propiedadInicial,
+          patio: !!propiedadInicial.patio,
+          cochera: !!propiedadInicial.cochera,
+          permuta: !!propiedadInicial.permuta,
+          servicios: !!propiedadInicial.servicios,
+          amoblado: !!propiedadInicial.amoblado,
+          pileta: !!propiedadInicial.pileta,
+          aptProf: !!propiedadInicial.aptProf,
+          barrioPriv: !!propiedadInicial.barrioPriv,
+        }
+      : {
+          id: undefined,
+          titulo: "",
+          descripcion: "",
+          precio: 0,
+          supCubierta: 0,
+          supTotal: 0,
+          cantidadHabitaciones: 0,
+          cantidadAmbientes: 0,
+          cantidadBanos: 0,
+          estado: "DISPONIBLE",
+          tipoOperacion: "VENTA",
+          tipoPropiedad: "CASA",
+          publicada: false,
+          patio: false,
+          cochera: false,
+          permuta: false,
+          servicios: false,
+          amoblado: false,
+          pileta: false,
+          aptProf: false,
+          barrioPriv: false,
+          direccion: {
+            calle: "",
+            numeracion: "",
+            ciudad: "",
+            provincia: "",
+            pais: "",
+          },
+          imagenes: [],
+        }
+  );
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -115,15 +116,21 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
       }));
     } catch (error) {
       console.error("Error al subir imagenes:", error);
-      alert("Error al subir imágenes");
+      toast.error("Error al subir imágenes");
     }
   };
 
-  const handleEliminarImagen = (index: number) => {
-    setFormData((prev) => ({
-      ...prev,
-      imagenes: prev.imagenes.filter((_, i) => i !== index),
-    }));
+  const handleEliminarImagen = async (id: number, index: number) => {
+    try {
+      await imagenPropiedadService.delete(id);
+      setFormData((prev) => ({
+        ...prev,
+        imagenes: prev.imagenes.filter((_, i) => i !== index),
+      }));
+      toast.success("Imagen eliminada correctamente!");
+    } catch (error) {
+      console.log("Error al elminar la imagen", error);
+    }
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -133,8 +140,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
 
     try {
       await onSubmit(formData);
-      // enviar al backend
-      navigate("/admin"); // redirigir después de crear/editar
+      navigate("/admin");
       toast.success("Propiedad guardada!");
     } catch (error) {
       console.error("Error al guardar propiedad:", error);
@@ -333,106 +339,26 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
               <option value="RESERVADO">Reservado</option>
             </Form.Select>
           </Form.Group>
+
+          {/* CHECKBOX */}
           <Form.Group className="mb-3">
             <h5 className={styles.formSubtitle}>Extras</h5>
             <div className={styles.extrasContainer}>
-              <Form.Check
-                type="checkbox"
-                label="Patio"
-                name="patio"
-                checked={!!formData.patio || false}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    patio: e.target.checked,
-                  }))
-                }
-              />
-
-              <Form.Check
-                type="checkbox"
-                label="Cochera"
-                name="cochera"
-                checked={!!formData.cochera || false}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    cochera: e.target.checked,
-                  }))
-                }
-              />
-              <Form.Check
-                type="checkbox"
-                label="Permuta"
-                name="permuta"
-                checked={!!formData.permuta || false}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    permuta: e.target.checked,
-                  }))
-                }
-              />
-              <Form.Check
-                type="checkbox"
-                label="Servicios"
-                name="servicios"
-                checked={!!formData.servicios || false}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    servicios: e.target.checked,
-                  }))
-                }
-              />
-              <Form.Check
-                type="checkbox"
-                label="Amoblado"
-                name="amoblado"
-                checked={!!formData.amoblado || false}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    amoblado: e.target.checked,
-                  }))
-                }
-              />
-              <Form.Check
-                type="checkbox"
-                label="Pileta"
-                name="pileta"
-                checked={!!formData.pileta || false}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    pileta: e.target.checked,
-                  }))
-                }
-              />
-              <Form.Check
-                type="checkbox"
-                label="Apto Profesional"
-                name="aptProf"
-                checked={!!formData.aptProf || false}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    aptProf: e.target.checked,
-                  }))
-                }
-              />
-              <Form.Check
-                type="checkbox"
-                label="Barrio Privado"
-                name="barrioPriv"
-                checked={!!formData.barrioPriv || false}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    barrioPriv: e.target.checked,
-                  }))
-                }
-              />
+              {extras.map(({ key, label }) => (
+                <Form.Check
+                  key={key}
+                  type="checkbox"
+                  label={label}
+                  name={key}
+                  checked={formData[key as keyof IPropiedad] as boolean}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      [key]: e.target.checked,
+                    }))
+                  }
+                />
+              ))}
             </div>
           </Form.Group>
         </Row>
@@ -555,7 +481,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
                   <button
                     type="button"
                     className={styles.deleteImageBtn}
-                    onClick={() => handleEliminarImagen(index)}
+                    onClick={() => handleEliminarImagen(img.id!, index)}
                   >
                     <X />
                   </button>
