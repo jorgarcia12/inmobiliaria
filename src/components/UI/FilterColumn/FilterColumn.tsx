@@ -3,7 +3,6 @@ import styles from "./FilterColumn.module.css";
 import { Slider, Typography } from "@mui/material";
 import { Button } from "react-bootstrap";
 import type { FiltrosPropiedad } from "../../../types/FiltrosPropiedad";
-import { SearchInput } from "./Filters/SearchInput";
 import { SelectFilter } from "./Filters/SelectFilter";
 import { CheckboxFilter } from "./Filters/CheckboxFilter";
 import { Menu } from "lucide-react";
@@ -45,9 +44,7 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
     }));
   };
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLocalFilters((prev) => ({ ...prev, search: e.target.value }));
-  };
+  
 
   const handlePrecioChange = (event: Event, newValue: number | number[]) => {
     if (Array.isArray(newValue)) {
@@ -104,12 +101,7 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
       <div
         className={`${styles.filterColumnWrapper} ${open ? styles.open : ""}`}
       >
-        <h3>Refina tu Búsqueda</h3>
-
-        <SearchInput
-          value={localFilters.search || ""}
-          onChange={handleSearchChange}
-        />
+        
 
         <div className={styles.actionButtons}>
           <Button className={styles.buttonFilters} onClick={aplicarFiltros}>

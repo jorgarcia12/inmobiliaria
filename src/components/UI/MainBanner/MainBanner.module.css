@@ -34,6 +34,8 @@
   transform: scale(1.05);
   cursor: pointer;
 }
+
+/* Banner */
 .banner {
   background-image: url("../../../assets/bannerImg.jpg"); /* ajustá ruta */
   background-size: cover;
@@ -77,13 +79,14 @@
   transition: 0.3s ease;
   color: black;
 }
+
 .bannerButton:hover {
   background-color: #f0f0f0;
   border: none;
   color: black;
 }
 
-/* Barra de busqueda */
+/* Barra de búsqueda */
 .searchBarContainer {
   display: flex;
   justify-content: center;
@@ -110,6 +113,7 @@
   font-size: 16px;
   padding: 10px;
   flex: 1;
+  height: 40px; /* para que coincida con el botón */
 }
 
 .searchButton {
@@ -118,8 +122,14 @@
   color: black;
   padding: 0 15px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px; /* igual que el input */
+  flex: 0 0 auto;
 }
 
+/* Responsive móvil */
 @media (max-width: 480px) {
   /* Contenedores */
   .bannerSearchContainer {
@@ -131,7 +141,7 @@
   .banner {
     height: 50dvh;
     background-position: top;
-    padding-top: 75px; /* 👈 agrega espacio por la altura de la navbar */
+    padding-top: 75px;
     box-sizing: border-box;
   }
 
@@ -143,15 +153,15 @@
   }
 
   .preFilterContainer {
-    flex-direction: column; /* de fila a columna */
-    gap: 15px; /* más cómodo en vertical */
+    flex-direction: column;
+    gap: 15px;
   }
 
   /* Botones */
   .bannerMainButton,
   .bannerButton {
-    width: 100%; /* ocupan todo el ancho */
-    max-width: 300px; /* límite para que no se estiren demasiado */
+    width: 100%;
+    max-width: 300px;
     height: 45px;
     font-size: 14px;
   }
@@ -159,12 +169,12 @@
   /* Barra de búsqueda */
   .searchBarContainer {
     margin-top: 20px;
-    padding: 0 10px; /* margen interno lateral */
+    padding: 0 10px;
   }
 
   .searchBar {
-    flex-direction: column; /* de fila a columna */
-    max-width: 100%; /* ocupa todo el ancho disponible */
+    flex-direction: column;
+    max-width: 100%;
   }
 
   .inputSearch {
@@ -177,6 +187,6 @@
     width: 100%;
     padding: 10px;
     font-size: 14px;
-    border-top: 1px solid #ddd; /* separador visual */
+    border-top: 1px solid #ddd;
   }
 }

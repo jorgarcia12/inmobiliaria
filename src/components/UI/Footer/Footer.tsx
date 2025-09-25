@@ -14,7 +14,9 @@ export const Footer = () => {
     navigate(path);
     window.scrollTo(0, 0);
   };
-
+ const handleContacto = () => {
+    window.open(`https://wa.me/${phone}`, "_blank");
+  };
   return (
     <div className={styles.footerContainer}>
       <div className={styles.logoContainer}>
@@ -28,7 +30,7 @@ export const Footer = () => {
         <li onClick={() => handleNavigate("/propiedades")}>Comprar</li>
         <li>Vender</li>
         <li onClick={() => navigate("/propiedades")}>Alquilar</li>
-        <li>Contacto</li>
+        <li onClick={handleContacto}>Contacto</li>
       </div>
 
       <div className={styles.contactContainer}>

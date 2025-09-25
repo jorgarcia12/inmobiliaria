@@ -13,7 +13,7 @@ export const SearchInput = ({ value, onChange }: SearchInputProps) => (
     <input
       type="text"
       value={value}
-      placeholder="Buscar Ubicacion"
+      placeholder="Busca por zona..."
       onChange={onChange}
       className={styles.searchInput}
     />

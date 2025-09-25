@@ -26,7 +26,7 @@ export const ImagesSection = ({ filters }: ImagesSectionProps) => {
     } else {
       fetchPropiedades();
     }
-  }, [filters]); // cada vez que cambian los filtros, vuelve a traer propiedades
+  }, [filters]); 
 
   const propiedadesHabilitadas = propiedades.filter((p) => p.publicada);
 

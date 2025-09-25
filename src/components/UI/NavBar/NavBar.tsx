@@ -4,13 +4,18 @@ import { Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-
+const numeroTelefono = import.meta.env.VITE_CONTACT_PHONE;
 export const NavBar = () => {
   const navigate = useNavigate();
   const handleLogin = () => {
     navigate("/auth/login");
   };
-
+  const handleConsulta = () => {
+    const numero = numeroTelefono;
+    const mensaje = "Hola, estoy interesado en publicar mi propiedad!";
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, "_blank");
+  };
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={styles.navBarContainer}>
@@ -38,11 +43,7 @@ export const NavBar = () => {
             </Link>
           </li>
           <li>
-            <Link
-              to="/vender"
-              className={styles.links}
-              onClick={() => setIsOpen(false)}
-            >
+            <Link to="/" className={styles.links} onClick={handleConsulta}>
               Vender
             </Link>
           </li>
@@ -55,15 +56,7 @@ export const NavBar = () => {
               Alquilar
             </Link>
           </li>
-          <li>
-            <Link
-              to="/contacto"
-              className={styles.links}
-              onClick={() => setIsOpen(false)}
-            >
-              Contacto
-            </Link>
-          </li>
+         
         </ul>
         <div className={styles.loginContainer}>
           <Button className={styles.loginButton} onClick={handleLogin}>
