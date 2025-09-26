@@ -1,8 +1,5 @@
-import axios from "axios";
 import api from "../interceptors/api.interceptor";
 import type { IUsuario } from "../types/IUsuario";
-
-const API_URL = import.meta.env.VITE_API_URL + "/usuario";
 
 interface UsuarioCreate {
   nombre: string;
@@ -14,76 +11,32 @@ interface UsuarioCreate {
   fechaNacimiento?: Date;
   password?: string;
 }
+
 export const usuarioService = {
-  // CREAR USUARIO
   createUsuario: async (usuario: UsuarioCreate) => {
-    try {
-      const res = await api.post(API_URL, usuario, {
-        headers: { "Content-Type": "application/json" },
-      });
-      return res.data;
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        console.error(
-          "Error al crear el usuario:",
-          error.response?.data || error.message
-        );
-      } else {
-        console.error("Error desconocido:", error);
-      }
-      throw error;
-    }
+    const { data } = await api.post("/usuario", usuario);
+    return data;
   },
 
-  // OBTENER TODOS LOS USUARIOS
   getAllUsers: async (): Promise<IUsuario[]> => {
-    try {
-      const res = await api.get(API_URL);
-      return res.data;
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        console.error(
-          "Error obteniendo usuarios:",
-          error.response?.data || error.message
-        );
-      } else {
-        console.error("Error desconocido:", error);
-      }
-      throw error;
-    }
+    const { data } = await api.get("/usuario");
+    return data;
   },
 
-  // ACTUALIZAR UN USUARIO
   updateUsuario: async (
     id: number,
     usuario: Partial<IUsuario>
   ): Promise<IUsuario> => {
-    const res = await api.put(`${API_URL}/${id}`, usuario, {
-      headers: { "Content-Type": "application/json" },
-    });
-    return res.data;
+    const { data } = await api.put(`/usuario/${id}`, usuario);
+    return data;
   },
 
-  // ELIMINAR UN USUARIO
   deleteUsuario: async (id: number): Promise<void> => {
-    await api.delete(`${API_URL}/${id}`);
+    await api.delete(`/usuario/${id}`);
   },
 
-  // ACTUALIZAR EL USUARIO ACTIVO
   updateActivo: async (id: number, activo: boolean) => {
-    try {
-      const res = await api.patch(`${API_URL}/${id}/activo`, { activo });
-      return res.data;
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        console.error(
-          "Error al actualizar usuario:",
-          error.response?.data || error.message
-        );
-      } else {
-        console.error("Error desconocido:", error);
-      }
-      throw error;
-    }
+    const { data } = await api.patch(`/usuario/${id}/activo`, { activo });
+    return data;
   },
 };
