@@ -44,9 +44,8 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
     }));
   };
 
-  
-
   const handlePrecioChange = (event: Event, newValue: number | number[]) => {
+    void event;
     if (Array.isArray(newValue)) {
       setPrecioRange(newValue);
       setLocalFilters((prev) => ({
@@ -101,8 +100,6 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
       <div
         className={`${styles.filterColumnWrapper} ${open ? styles.open : ""}`}
       >
-        
-
         <div className={styles.actionButtons}>
           <Button className={styles.buttonFilters} onClick={aplicarFiltros}>
             Aplicar filtros
@@ -138,7 +135,13 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
             <SelectFilter
               name="tipoPropiedad"
               placeholder="Tipo de Propiedad"
-              options={["CASA", "DEPARTAMENTO", "TERRENO", "LOCAL_COMERCIAL", "GALPON"]}
+              options={[
+                "CASA",
+                "DEPARTAMENTO",
+                "TERRENO",
+                "LOCAL_COMERCIAL",
+                "GALPON",
+              ]}
               value={localFilters.tipoPropiedad}
               onChange={handleFilterChange}
             />
