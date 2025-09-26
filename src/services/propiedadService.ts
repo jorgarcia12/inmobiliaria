@@ -8,16 +8,19 @@ export const propiedadService = {
     return data;
   },
 
-  filterProperties: async (filtros: FiltrosPropiedad): Promise<IPropiedad[]> => {
-    const queryParams = new URLSearchParams();
+filterProperties: async (filtros: FiltrosPropiedad): Promise<IPropiedad[]> => {
+    // Convertimos filtros a params, eliminando undefined/null/empty
+    const params: Partial<Record<keyof FiltrosPropiedad, string | number | boolean>> = {};
     Object.entries(filtros).forEach(([key, value]) => {
       if (value !== undefined && value !== null && value !== "") {
-        queryParams.append(key, value.toString());
+        params[key as keyof FiltrosPropiedad] = value as string | number | boolean;
       }
     });
-    const { data } = await api.get(`/propiedad/filtros?${queryParams.toString()}`);
+
+    const { data } = await api.get<IPropiedad[]>("/propiedad/filtros", { params });
     return data;
   },
+
 
   getPropertyById: async (id: number): Promise<IPropiedad> => {
     const { data } = await api.get(`/propiedad/${id}`);
