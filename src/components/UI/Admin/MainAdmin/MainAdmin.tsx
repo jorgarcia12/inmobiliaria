@@ -58,11 +58,16 @@ export const MainAdmin = () => {
                     <span>Sin Imagenes</span>
                   )}
                 </td>
-                <td>{prop.tipoPropiedad}</td>
-                <td>{prop.tipoOperacion}</td>
-                <td>${prop.precio.toLocaleString()}</td>
+                <td>{prop.tipoPropiedad || "-"}</td>
+                <td>{prop.tipoOperacion || "-"}</td>
+                <td>
+                  {" "}
+                  {prop.precio != null
+                    ? `$${prop.precio.toLocaleString()}`
+                    : "No disponible"}
+                </td>
                 <td>{prop.direccion?.ciudad || "-"}</td>
-                <td>{prop.cantidadHabitaciones}</td>
+                <td>{prop.cantidadHabitaciones || 0}</td>
                 <td>
                   <Button
                     variant="dark"
