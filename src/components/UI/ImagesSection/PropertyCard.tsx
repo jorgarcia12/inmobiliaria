@@ -12,12 +12,17 @@ export const PropertyCard: FC<PropertyCardProps> = ({
   propiedad,
   onOpenModal,
 }) => {
-  const precioFormateado = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 0, // sin decimales
-  }).format(propiedad.precio);
+  const precioFormateado =
+    propiedad.precio != null
+      ? new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 0,
+        }).format(propiedad.precio)
+      : "Consultar";
 
+  const descripcion = propiedad.descripcion ?? "Sin descripción";
+  
   return (
     <div className={styles.cardContainer}>
       <div className={styles.imgContainer}>
@@ -29,23 +34,23 @@ export const PropertyCard: FC<PropertyCardProps> = ({
       </div>
 
       <div className={styles.detailContainer}>
-        <h2>{propiedad.titulo}</h2>
+        <h2>{propiedad.titulo || " "}</h2>
         <h3>{precioFormateado}</h3>
         <p className={styles.propDescription}>
-          {propiedad.descripcion.length > 100
-            ? propiedad.descripcion.slice(0, 250) + "..."
-            : propiedad.descripcion}
+          {descripcion.length > 100
+            ? descripcion.slice(0, 250) + "..."
+            : descripcion}
         </p>
 
         <div className={styles.propertyDetails}>
           <span>
-            <BedDouble size={16} /> {propiedad.cantidadHabitaciones} hab.
+            <BedDouble size={16} /> {propiedad.cantidadHabitaciones ?? 0} hab.
           </span>
           <span>
-            <Bath size={16} /> {propiedad.cantidadBanos} baños
+            <Bath size={16} /> {propiedad.cantidadBanos ?? 0} baños
           </span>
           <span>
-            <Ruler size={16} /> {propiedad.supTotal} m²
+            <Ruler size={16} /> {propiedad.supTotal ?? 0} m²
           </span>
         </div>
 

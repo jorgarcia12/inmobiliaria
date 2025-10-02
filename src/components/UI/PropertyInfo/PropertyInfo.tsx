@@ -20,11 +20,14 @@ export const PropertyInfo: FC<PropertyInfoProps> = ({
   show,
   onClose,
 }) => {
-  const precioFormateado = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 0,
-  }).format(propiedad.precio);
+  const precioFormateado =
+    propiedad.precio != null
+      ? new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 0,
+        }).format(propiedad.precio)
+      : "Consultar";
 
   const handleConsulta = () => {
     const numero = numeroTelefono;
@@ -52,15 +55,19 @@ export const PropertyInfo: FC<PropertyInfoProps> = ({
         <div className={styles.topRow}>
           <div className={styles.carouselContainer}>
             <Carousel>
-              {propiedad.imagenes.map((img) => (
-                <Carousel.Item key={img.id}>
-                  <img
-                    className={styles.propertyInfoImg}
-                    src={img.url}
-                    alt={propiedad.titulo}
-                  />
-                </Carousel.Item>
-              ))}
+              {(propiedad.imagenes?.length ?? 0) > 0 ? (
+                propiedad.imagenes.map((img) => (
+                  <Carousel.Item key={img.id}>
+                    <img
+                      className={styles.propertyInfoImg}
+                      src={img.url}
+                      alt={propiedad.titulo ?? ""}
+                    />
+                  </Carousel.Item>
+                ))
+              ) : (
+                <p>Sin imágenes disponibles</p>
+              )}
             </Carousel>
           </div>
 
@@ -85,22 +92,23 @@ export const PropertyInfo: FC<PropertyInfoProps> = ({
           <h5 className={styles.propertyInfoPrice}>{precioFormateado}</h5>
           <div className={styles.propertyInfoDetails}>
             <span>
-              <BedDouble size={20} /> {propiedad.cantidadHabitaciones} hab.
+              <BedDouble size={20} /> {propiedad.cantidadHabitaciones ?? 0} hab.
             </span>
             <span>
-              <Bath size={20} /> {propiedad.cantidadBanos} baños
+              <Bath size={20} /> {propiedad.cantidadBanos ?? 0} baños
             </span>
             <span>
-              <Ruler size={20} /> {propiedad.supTotal} m² totales
+              <Ruler size={20} /> {propiedad.supTotal ?? 0} m² totales
             </span>
             <span>
-              <Ruler size={20} /> {propiedad.supCubierta} m² cubiertos
+              <Ruler size={20} /> {propiedad.supCubierta ?? 0} m² cubiertos
             </span>
             <span>
-              <HouseIcon fontSize="small" /> {propiedad.tipoPropiedad}
+              <HouseIcon fontSize="small" /> {propiedad.tipoPropiedad || "-"}
             </span>
             <span>
-              <ApartmentIcon fontSize="small" /> {propiedad.tipoOperacion}
+              <ApartmentIcon fontSize="small" />{" "}
+              {propiedad.tipoOperacion || "-"}
             </span>
           </div>
           <div className={styles.propertyExtras}>
@@ -147,7 +155,7 @@ export const PropertyInfo: FC<PropertyInfoProps> = ({
             )}
           </div>
           <p className={styles.propertyInfoDescription}>
-            {propiedad.descripcion}
+            {propiedad.descripcion ?? "Sin descripcion"}
           </p>
         </div>
       </Modal.Body>
