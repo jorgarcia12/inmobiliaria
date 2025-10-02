@@ -7,6 +7,7 @@ import { LoginForm } from "../../../components/UI/Login/LoginForm/LoginForm";
 import { authService } from "../../../services/authService";
 import { usuarioStore } from "../../../store/usuarioStore";
 import { toast } from "react-toastify";
+
 export const LoginView = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,14 +23,16 @@ export const LoginView = () => {
     }
     try {
       const data = await authService.login(username, password);
-      console.log(data);
+      console.log(data.usuario.nombre);
+
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.username));
-      setUsuarioLogueado(data.username);
+
+      localStorage.setItem("user", JSON.stringify(data.usuario));
+      setUsuarioLogueado(data.usuario);
 
       setError("");
       navigate("/admin");
-      toast("Bienvenido! " + data.username.nombre)
+      toast("Bienvenido! " + data.usuario.nombre);
     } catch (err) {
       setError("Usuario o contraseña incorrectos");
       console.log("Usuario o contraseña incorrectos", err);

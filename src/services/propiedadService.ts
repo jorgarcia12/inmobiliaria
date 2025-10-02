@@ -9,7 +9,7 @@ export const propiedadService = {
   },
 
 filterProperties: async (filtros: FiltrosPropiedad): Promise<IPropiedad[]> => {
-    // Convertimos filtros a params, eliminando undefined/null/empty
+    
     const params: Partial<Record<keyof FiltrosPropiedad, string | number | boolean>> = {};
     Object.entries(filtros).forEach(([key, value]) => {
       if (value !== undefined && value !== null && value !== "") {

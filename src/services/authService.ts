@@ -1,9 +1,18 @@
 import api from "../interceptors/api.interceptor";
 import type { Rol } from "../types/enums";
+import type { IUsuario } from "../types/IUsuario";
+
+interface LoginResponse {
+  token: string;
+  usuario: IUsuario;
+}
 
 export const authService = {
-  login: async (username: string, password: string) => {
-    const { data } = await api.post("/auth/login", { username, password });
+  login: async (username: string, password: string): Promise<LoginResponse> => {
+    const { data } = await api.post<LoginResponse>("/auth/login", {
+      username,
+      password,
+    });
     return data;
   },
 
@@ -17,7 +26,7 @@ export const authService = {
     username: string,
     password: string
   ) => {
-    const { data } = await api.post("/auth/register", {
+    const { data } = await api.post<IUsuario>("/auth/register", {
       nombre,
       apellido,
       email,
