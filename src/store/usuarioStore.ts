@@ -20,10 +20,26 @@ interface UsuarioState {
   logout: () => void;
 }
 
+let usuarioInicial: IUsuario | null = null;
 const usuarioGuardado = localStorage.getItem("user");
-const usuarioInicial: IUsuario | null = usuarioGuardado
-  ? JSON.parse(usuarioGuardado)
-  : null;
+
+if (
+  usuarioGuardado &&
+  usuarioGuardado !== "undefined" &&
+  usuarioGuardado !== "null"
+) {
+  try {
+    usuarioInicial = JSON.parse(usuarioGuardado) as IUsuario;
+  } catch (e) {
+    console.error(
+      "Error al parsear user desde localStorage:",
+      usuarioGuardado,
+      e
+    );
+    usuarioInicial = null;
+    localStorage.removeItem("user"); // limpiar valor corrupto
+  }
+}
 
 export const usuarioStore = create<UsuarioState>((set, get) => ({
   usuarios: [],
@@ -92,7 +108,15 @@ export const usuarioStore = create<UsuarioState>((set, get) => ({
       console.log(err);
     }
   },
-  setUsuarioLogueado: (usuario) => set({ usuarioLogueado: usuario }),
+  setUsuarioLogueado: (usuario) => {
+    set({ usuarioLogueado: usuario });
+    if (usuario) {
+      localStorage.setItem("user", JSON.stringify(usuario));
+    } else {
+      localStorage.removeItem("user");
+    }
+  },
+  
   setUsuarioSeleccionado: (usuario) => set({ usuarioSeleccionado: usuario }),
 
   logout: () => {
