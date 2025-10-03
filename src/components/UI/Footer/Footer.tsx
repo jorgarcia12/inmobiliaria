@@ -56,7 +56,7 @@ export const Footer = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Instagram /> @casaGarita
+          <Instagram /> @casagaritaonandia
         </a>
       </div>
     </div>

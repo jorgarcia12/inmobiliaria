@@ -9,7 +9,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import styles from "./FormAddProperty.module.css";
 import { cloudinaryService } from "../../../../services/cloudinaryService";
 import { useNavigate } from "react-router-dom";
-import { X } from "lucide-react";
+import { Star, Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
 import { imagenPropiedadService } from "../../../../services/imagenPropiedadService";
 
@@ -484,7 +484,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
                     className={styles.deleteImageBtn}
                     onClick={() => handleEliminarImagen(img.id!, index)}
                   >
-                    <X />
+                    <Trash2 />
                   </button>
                   {/* Setear imagen como principal */}
                   <button
@@ -504,7 +504,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
                       }
                     }}
                   >
-                    ⭐
+                    <Star />
                   </button>
                 </div>
               ))}
