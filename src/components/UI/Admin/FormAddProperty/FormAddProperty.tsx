@@ -478,12 +478,33 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
                     alt="preview"
                     className={styles.imagePreview}
                   />
+                  {/* Eliminar imagen */}
                   <button
                     type="button"
                     className={styles.deleteImageBtn}
                     onClick={() => handleEliminarImagen(img.id!, index)}
                   >
                     <X />
+                  </button>
+                  {/* Setear imagen como principal */}
+                  <button
+                    type="button"
+                    className={`${styles.starImageBtn} ${
+                      index === 0 ? styles.starActive : ""
+                    }`}
+                    onClick={() => {
+                      if (index !== 0) {
+                        setFormData((prev) => {
+                          const newImages = [...prev.imagenes];
+                          const [selected] = newImages.splice(index, 1);
+                          newImages.unshift(selected);
+                          return { ...prev, imagenes: newImages };
+                        });
+                        toast.success("Imagen seleccionada como portada!");
+                      }
+                    }}
+                  >
+                    ⭐
                   </button>
                 </div>
               ))}

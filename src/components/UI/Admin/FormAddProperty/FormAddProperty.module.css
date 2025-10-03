@@ -113,6 +113,7 @@ textarea {
 .imageWrapper {
   position: relative; /* necesario para posicionar el botón */
   display: inline-block;
+  margin: 5px;
 }
 
 .imagePreview {
@@ -129,7 +130,7 @@ textarea {
   right: -6px;
   background-color: #db703b;
   border: none;
-  color: white;
+  color: black;
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -144,7 +145,30 @@ textarea {
 }
 
 .deleteImageBtn:hover {
+  color: black;
   background-color: #d9363e;
   transform: scale(1.1);
 }
 
+.starImageBtn {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 16px;
+  color: gray; /* color por defecto */
+  transition: 0.2s;
+}
+
+.starImageBtn:hover {
+  background: gold;
+}
+
+.starActive {
+  color: gold; /* portada */
+  font-size: 18px;
+}
