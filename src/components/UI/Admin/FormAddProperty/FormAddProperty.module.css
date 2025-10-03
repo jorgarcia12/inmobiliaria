@@ -152,8 +152,9 @@ textarea {
 
 .starImageBtn {
   position: absolute;
-  bottom: 1px;
-  right: 1px;
+  bottom: -1px;
+  right: 6px;
+  background: transparent;
   border: none;
   cursor: pointer;
   padding: 5px;
@@ -162,7 +163,7 @@ textarea {
 }
 
 .starImageBtn:hover {
-  background: gold;
+  color: gold;
 }
 
 .starActive {
