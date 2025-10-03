@@ -164,6 +164,7 @@ textarea {
 
 .starImageBtn:hover {
   color: gold;
+  background: transparent;
 }
 
 .starActive {
