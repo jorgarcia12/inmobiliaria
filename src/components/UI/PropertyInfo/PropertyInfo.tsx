@@ -22,11 +22,12 @@ export const PropertyInfo: FC<PropertyInfoProps> = ({
 }) => {
   const precioFormateado =
     propiedad.precio != null
-      ? new Intl.NumberFormat("en-US", {
+      ? `${new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
+          currencyDisplay: "code",
           minimumFractionDigits: 0,
-        }).format(propiedad.precio)
+        }).format(propiedad.precio)}`
       : "Consultar";
 
   const handleConsulta = () => {

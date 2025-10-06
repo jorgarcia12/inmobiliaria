@@ -1,8 +1,9 @@
 import type { FC } from "react";
 import type { IPropiedad } from "../../../types/IPropiedad";
-import { BedDouble, Bath, Ruler } from "lucide-react";
+import { Ruler } from "lucide-react";
 import styles from "./PropertyCard.module.css";
-
+import HouseIcon from "@mui/icons-material/House";
+import ApartmentIcon from "@mui/icons-material/Apartment";
 interface PropertyCardProps {
   propiedad: IPropiedad;
   onOpenModal: () => void;
@@ -14,15 +15,16 @@ export const PropertyCard: FC<PropertyCardProps> = ({
 }) => {
   const precioFormateado =
     propiedad.precio != null
-      ? new Intl.NumberFormat("en-US", {
+      ? `${new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
+          currencyDisplay: "code",
           minimumFractionDigits: 0,
-        }).format(propiedad.precio)
+        }).format(propiedad.precio)}`
       : "Consultar";
 
   const descripcion = propiedad.descripcion ?? "Sin descripción";
-  
+
   return (
     <div className={styles.cardContainer}>
       <div className={styles.imgContainer}>
@@ -44,13 +46,13 @@ export const PropertyCard: FC<PropertyCardProps> = ({
 
         <div className={styles.propertyDetails}>
           <span>
-            <BedDouble size={16} /> {propiedad.cantidadHabitaciones ?? 0} hab.
+            <Ruler size={20} /> {propiedad.supTotal ?? 0} m² totales
           </span>
           <span>
-            <Bath size={16} /> {propiedad.cantidadBanos ?? 0} baños
+            <HouseIcon fontSize="small" /> {propiedad.tipoPropiedad || "-"}
           </span>
           <span>
-            <Ruler size={16} /> {propiedad.supTotal ?? 0} m²
+            <ApartmentIcon fontSize="small" /> {propiedad.tipoOperacion || "-"}
           </span>
         </div>
 
