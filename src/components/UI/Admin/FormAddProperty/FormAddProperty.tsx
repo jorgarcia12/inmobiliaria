@@ -136,7 +136,29 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!formData.titulo || !formData.descripcion) return;
+    if (!formData.titulo.trim()) {
+      toast.error("El título es obligatorio");
+      return;
+    }
+
+    if (!formData.descripcion.trim()) {
+      toast.error("La descripción es obligatoria");
+      return;
+    }
+
+    if (!formData.precio || formData.precio <= 0) {
+      toast.error("Debe ingresar un precio válido");
+      return;
+    }
+
+    if (!formData.direccion.calle.trim() || !formData.direccion.ciudad.trim()) {
+      toast.error("Debe completar al menos calle y ciudad");
+      return;
+    }
+    if (formData.supTotal < formData.supCubierta) {
+      toast.error("La superficie total no puede ser menor que la cubierta");
+      return;
+    }
 
     try {
       await onSubmit(formData);
@@ -144,7 +166,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
       toast.success("Propiedad guardada!");
     } catch (error) {
       console.error("Error al guardar propiedad:", error);
-      alert("Error al guardar propiedad");
+      toast.error("Error al guardar propiedad");
     }
 
     if (modo === "crear") {

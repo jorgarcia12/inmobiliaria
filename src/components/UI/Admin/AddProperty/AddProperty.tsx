@@ -1,7 +1,8 @@
+import { toast } from "react-toastify";
 import { propiedadService } from "../../../../services/propiedadService";
 import type { IPropiedad } from "../../../../types/IPropiedad";
 import { FormAddProperty } from "../FormAddProperty/FormAddProperty";
-import { SideBarProperties } from "../SideBarProperties/SideBarProperties";
+
 import styles from "./AddProperty.module.css";
 
 export const AddProperty = () => {
@@ -9,18 +10,16 @@ export const AddProperty = () => {
     try {
       const nuevaProp = await propiedadService.create(propiedad);
       console.log("Propiedad creada: ", nuevaProp);
-      alert("Propiedad creada")
+      toast.success("Propiedad creada");
     } catch (error) {
-      console.log("error al crear la propiedad: ",error)
-      alert("Error al crear la propiedad")
+      console.log("error al crear la propiedad: ", error);
+      toast.error("Error al crear la propiedad");
     }
   };
 
   return (
     <div className={styles.addPropertyContainer}>
-      <FormAddProperty onSubmit={handleCreateProperty}
-      />
-      <SideBarProperties />
+      <FormAddProperty onSubmit={handleCreateProperty} />
     </div>
   );
 };

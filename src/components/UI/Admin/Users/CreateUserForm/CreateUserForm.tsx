@@ -7,6 +7,7 @@ import { Button } from "react-bootstrap";
 import styles from "./CreateUserForm.tsx.module.css";
 import { authService } from "../../../../../services/authService";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const CreateUserForm = () => {
   const [nombre, setNombre] = useState("");
@@ -43,7 +44,7 @@ export const CreateUserForm = () => {
         password
       );
 
-      alert("Usuario creado correctamente!");
+      toast.success("Usuario creado correctamente!");
 
       // limpiar form
       setNombre("");
@@ -60,7 +61,7 @@ export const CreateUserForm = () => {
       navigate("/admin")
     } catch (error) {
       console.error(error);
-      alert("Hubo un error al crear el usuario.");
+      toast.error("Hubo un error al crear el usuario.");
     }
   };
 

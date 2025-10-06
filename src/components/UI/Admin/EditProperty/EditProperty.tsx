@@ -41,7 +41,7 @@ export const EditProperty = () => {
       navigate("/admin");
       toast.success("Propiedad Acualizada!")
     } catch (error) {
-      alert("Error al actualizar la propiedad");
+      toast.error("Error al actualizar la propiedad");
       console.error("Error al actualizar la propiedad", error);
     }
   };

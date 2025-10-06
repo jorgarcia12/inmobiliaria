@@ -93,9 +93,6 @@ export const PropertyInfo: FC<PropertyInfoProps> = ({
           <h5 className={styles.propertyInfoPrice}>{precioFormateado}</h5>
           <div className={styles.propertyInfoDetails}>
             <span>
-              <Ruler size={20} /> {propiedad.supCubierta ?? 0} m² cubiertos
-            </span>
-            <span>
               <HouseIcon fontSize="small" /> {propiedad.tipoPropiedad || "-"}
             </span>
             <span>
@@ -103,13 +100,16 @@ export const PropertyInfo: FC<PropertyInfoProps> = ({
               {propiedad.tipoOperacion || "-"}
             </span>
             <span>
+              <Ruler size={20} /> {propiedad.supCubierta ?? 0} m² cubiertos
+            </span>
+            <span>
+              <Ruler size={20} /> {propiedad.supTotal ?? 0} m² totales
+            </span>
+            <span>
               <BedDouble size={20} /> {propiedad.cantidadHabitaciones ?? 0} hab.
             </span>
             <span>
               <Bath size={20} /> {propiedad.cantidadBanos ?? 0} baños
-            </span>
-            <span>
-              <Ruler size={20} /> {propiedad.supTotal ?? 0} m² totales
             </span>
           </div>
           <div className={styles.propertyExtras}>

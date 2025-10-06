@@ -13,11 +13,11 @@ import { useNavigate } from "react-router-dom";
 export const SideBarAdmin = () => {
   const navigate = useNavigate();
   const handleNavFeatured = () => {
-    navigate("/admin/feat-properties");
+    navigate("/construccion");
   };
 
   const handleNavReports = () => {
-    navigate("/admin/reports");
+    navigate("/construccion");
   };
 
   const handleGoUsers = () => {
@@ -28,7 +28,7 @@ export const SideBarAdmin = () => {
     navigate("/admin/users/add-user");
   };
   const handleGoRolesAndPermissions = () => {
-    navigate("/admin/roles-and-permissions");
+    navigate("/construccion");
   };
   return (
     <div className={styles.sideBarContainer}>
@@ -54,7 +54,7 @@ export const SideBarAdmin = () => {
               variant="body2"
               sx={{ cursor: "pointer", mb: 2, borderBottom: "1px solid" }}
               className={styles.buttonAction}
-              onClick={()=>navigate("/admin")}
+              onClick={() => navigate("/admin")}
             >
               Todas las propiedades
             </Typography>
