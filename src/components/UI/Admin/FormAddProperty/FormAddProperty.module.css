@@ -38,6 +38,18 @@
   padding-bottom: 10px;
 }
 
+/* Boton para volver atras */
+.backButton {
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  transition: 0.2s ease;
+}
+
+.backButton:hover {
+  background-color: #b3b3b3;
+}
+
 /* Labels e inputs */
 label,
 .form-label {

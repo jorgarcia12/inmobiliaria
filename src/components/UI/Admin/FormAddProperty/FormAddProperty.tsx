@@ -207,6 +207,15 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
   return (
     <Form onSubmit={handleSubmit} className={styles.formContainer}>
       {/* Columna izquierda */}
+      <Button
+        type="button"
+        variant="secondary"
+        className={styles.backButton}
+        onClick={() => navigate(-1)} // vuelve a la pantalla anterior
+      >
+        Volver atrás
+      </Button>
+
       <div className={styles.formColumn}>
         <Form.Group className="mb-3">
           <h5 className={styles.formSubtitle}>Información</h5>
