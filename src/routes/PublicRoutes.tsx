@@ -8,6 +8,6 @@ export const PublicRoutes = (
   <Route element={<PublicLayout />}>
     <Route path="/" element={<Home />} />
     <Route path="/propiedades" element={<Properties />} />
-    <Route path="/constuccion" element={<UnderConstructionView/>} />
+    <Route path="/construccion" element={<UnderConstructionView/>} />
   </Route>
 );
