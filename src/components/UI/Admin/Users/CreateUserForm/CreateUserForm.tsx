@@ -66,9 +66,9 @@ export const CreateUserForm = () => {
 
   return (
     <Form onSubmit={handleSubmit} className={styles.formContainer}>
+      <h3 className={styles.title}>Crear Usuario</h3>
       <div className={styles.columnsContainer}>
         <div className={styles.column}>
-          <h3 className={styles.title}>Crear Usuario</h3>
           <Form.Group className={styles.formGroup}>
             <Form.Label className={styles.formLabel}>Nombre</Form.Label>
             <Form.Control
