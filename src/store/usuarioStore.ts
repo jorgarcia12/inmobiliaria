@@ -37,7 +37,7 @@ if (
       e
     );
     usuarioInicial = null;
-    localStorage.removeItem("user"); // limpiar valor corrupto
+    localStorage.removeItem("user");
   }
 }
 

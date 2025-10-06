@@ -215,7 +215,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
           className={styles.backButton}
           onClick={() => navigate(-1)} // vuelve a la pantalla anterior
         >
-          <ChevronLeft size={20}/>
+          <ChevronLeft size={18}/>
           Volver atrás
         </Button>
         <Form.Group className="mb-3">
