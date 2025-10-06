@@ -66,7 +66,7 @@ export const CreateUserForm = () => {
 
   return (
     <Form onSubmit={handleSubmit} className={styles.formContainer}>
-      <div className={styles.columnContainer}>
+      <div className={styles.columnsContainer}>
         <div className={styles.column}>
           <h3 className={styles.title}>Crear Usuario</h3>
           <Form.Group className={styles.formGroup}>
@@ -174,9 +174,6 @@ export const CreateUserForm = () => {
             />
           </Form.Group>
           <div className={styles.actions}>
-            <Button type="submit" className={styles.submitButton}>
-              Crear Usuario
-            </Button>
             <Button
               type="button"
               variant="secondary"
@@ -185,6 +182,9 @@ export const CreateUserForm = () => {
             >
               <ArrowLeft size={18} style={{ marginRight: "6px" }} />
               Volver atrás
+            </Button>
+            <Button type="submit" className={styles.submitButton}>
+              Crear Usuario
             </Button>
           </div>
         </div>

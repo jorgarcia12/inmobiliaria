@@ -21,9 +21,9 @@
   text-align: center;
   font-size: 1.8rem;
   font-weight: 700;
-  color: #db703b;
+  color: #003a33;
   margin-bottom: 1rem;
-  border-bottom: 2px solid #db703b;
+  border-bottom: 2px solid #003a33;
   padding-bottom: 0.5rem;
 }
 
@@ -31,6 +31,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  flex: 1;
 }
 
 /* Grupos de inputs */
@@ -56,9 +57,9 @@
 }
 
 .formInput:focus {
-  border-color: #db703b;
-  box-shadow: 0 0 5px rgba(219, 112, 59, 0.4);
   outline: none;
+  border-color: #049483;
+  box-shadow: 0 0 5px rgba(4, 148, 131, 0.4);
 }
 
 /* Selects */
@@ -72,9 +73,9 @@
 }
 
 .formSelect:focus {
-  border-color: #db703b;
-  box-shadow: 0 0 5px rgba(219, 112, 59, 0.4);
   outline: none;
+  border-color: #049483;
+  box-shadow: 0 0 5px rgba(4, 148, 131, 0.4);
 }
 
 /* Botón de submit */
