@@ -40,14 +40,14 @@
 
 /* Boton para volver atras */
 .backButton {
-  background-color: #ccc;
-  color: #333;
+  background-color: #049483;
+  color: white;
   border: none;
   transition: 0.2s ease;
 }
 
 .backButton:hover {
-  background-color: #b3b3b3;
+  background-color: #003a33;
 }
 
 /* Labels e inputs */

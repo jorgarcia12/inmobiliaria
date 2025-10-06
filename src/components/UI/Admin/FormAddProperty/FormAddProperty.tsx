@@ -9,7 +9,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import styles from "./FormAddProperty.module.css";
 import { cloudinaryService } from "../../../../services/cloudinaryService";
 import { useNavigate } from "react-router-dom";
-import { Star, Trash2 } from "lucide-react";
+import { ChevronLeft, Star, Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
 import { imagenPropiedadService } from "../../../../services/imagenPropiedadService";
 
@@ -215,6 +215,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
           className={styles.backButton}
           onClick={() => navigate(-1)} // vuelve a la pantalla anterior
         >
+          <ChevronLeft size={20}/>
           Volver atrás
         </Button>
         <Form.Group className="mb-3">
