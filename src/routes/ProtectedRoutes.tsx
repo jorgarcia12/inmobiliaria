@@ -22,6 +22,6 @@ export const ProtectedRoutes = (
     <Route path="editar/:id" element={<EditProperty />} />
     <Route path="users/add-user" element={<CreateUserForm />} />
     <Route path="users" element={<UsersView />} />
-    <Route path="/constuccion" element={<UnderConstructionView/>} />
+    <Route path="constuccion" element={<UnderConstructionView/>} />
   </Route>
 );
