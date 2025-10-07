@@ -75,6 +75,46 @@ ul {
   display: none;
   cursor: pointer;
 }
+.userInfoContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  background-color: transparent;
+  border-radius: 8px;
+  width: 80%;
+  cursor: pointer;
+}
+
+.username {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.userInfoContainer svg {
+  transition: transform 0.2s ease;
+}
+
+.userInfoContainer:hover svg {
+  transform: scale(1.1);
+}
+
+.logoutButton {
+  background: transparent;
+  border: 1px solid #db703b;
+  color: #db703b;
+  padding: 5px 1px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background-color: #db703b;
+  border: none;
+  color: white;
+}
 
 @media (max-width: 480px) {
   .hamburguesa {

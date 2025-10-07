@@ -12,7 +12,13 @@
   height: 50px;
   margin: 0;
 }
+.logoContainer {
+  transition: transform 0.2s ease;
+}
 
+.logoContainer:hover {
+  transform: scale(1.1);
+}
 .userInfoContainer {
   display: flex;
   flex-direction: row;

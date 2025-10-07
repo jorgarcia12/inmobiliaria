@@ -16,6 +16,9 @@ export const NavBarAdmin = () => {
     logout();
     setTimeout(() => navigate("/", { replace: true }), 0);
   };
+  const handleGoHome = () => {
+    navigate("/");
+  };
   return (
     <div className={styles.navBarAdminContainer}>
       <div className={styles.userInfoContainer}>
@@ -32,7 +35,7 @@ export const NavBarAdmin = () => {
         </div>
       </div>
 
-      <div className={styles.logoContainer}>
+      <div className={styles.logoContainer} onClick={handleGoHome}>
         <img src={logo} alt="logo-casaGarita" />
       </div>
 
