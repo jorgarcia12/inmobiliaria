@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import { PublicRoutes } from "./routes/PublicRoutes";
 import { AuthRoutes } from "./routes/AuthRoutes";
 import { ProtectedRoutes } from "./routes/ProtectedRoutes";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import "./App.css";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         draggable
         theme="colored"
       />
+      <SpeedInsights />
     </>
   );
 }
