@@ -3,7 +3,7 @@ import logo from "../../../assets/Casa Garitaonandia-35.png";
 import { Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { CircleUserRound, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { usuarioStore } from "../../../store/usuarioStore";
 import { Logout } from "@mui/icons-material";
 const numeroTelefono = import.meta.env.VITE_CONTACT_PHONE;
