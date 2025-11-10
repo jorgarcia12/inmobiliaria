@@ -8,6 +8,9 @@ export type TipoPropiedad =
   | "LOCAL_COMERCIAL"
   | "OFICINA"
   | "TERRENO"
-  | "GALPON";
+  | "GALPON"
+  | "DUPLEX";
 
 export type Rol = "ADMIN" | "AGENTE" | "USUARIO";
+
+export type Divisa = "USD" | "ARS";

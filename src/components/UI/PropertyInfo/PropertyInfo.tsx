@@ -20,15 +20,13 @@ export const PropertyInfo: FC<PropertyInfoProps> = ({
   show,
   onClose,
 }) => {
-  const precioFormateado =
-    propiedad.precio != null
-      ? `${new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-          currencyDisplay: "code",
-          minimumFractionDigits: 0,
-        }).format(propiedad.precio)}`
-      : "Consultar";
+ const precioFormateado =
+  propiedad.precio != null
+    ? `$${propiedad.divisa === "USD" ? "USD" : "ARS"} ${new Intl.NumberFormat("es-AR", {
+        minimumFractionDigits: 0,
+      }).format(propiedad.precio)}`
+    : "Consultar";
+
 
   const handleConsulta = () => {
     const numero = numeroTelefono;

@@ -23,6 +23,12 @@ export const TablaDetalllePropiedad: FC<TablaDetallePropiedadProps> = ({
         </tr>
         <tr>
           <td>
+            <strong>Divisa</strong>
+          </td>
+          <td>{propiedad.divisa}</td>
+        </tr>
+        <tr>
+          <td>
             <strong>Superficie Total</strong>
           </td>
           <td>{propiedad.supTotal}</td>
