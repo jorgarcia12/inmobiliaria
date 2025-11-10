@@ -143,6 +143,7 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
                 "TERRENO",
                 "LOCAL_COMERCIAL",
                 "GALPON",
+                "DUPLEX"
               ]}
               value={localFilters.tipoPropiedad}
               onChange={handleFilterChange}
