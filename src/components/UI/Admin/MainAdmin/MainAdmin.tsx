@@ -42,7 +42,7 @@ export const MainAdmin = () => {
           {propiedades.map((prop) => (
             <Fragment key={prop.id}>
               <tr>
-                <td>{prop.id}</td>
+                <td>#{prop.id}</td>
                 <td>
                   {prop.imagenes && prop.imagenes.length > 0 ? (
                     <img

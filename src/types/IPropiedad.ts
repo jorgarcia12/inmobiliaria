@@ -1,4 +1,4 @@
-import type { Estado, TipoOperacion, TipoPropiedad } from "./enums";
+import type { Divisa, Estado, TipoOperacion, TipoPropiedad } from "./enums";
 import type { IDireccion } from "./IDireccion";
 import type { IImagenPropiedad } from "./IImagenPropiedad";
 import type { IUsuario } from "./IUsuario";
@@ -8,6 +8,7 @@ export interface IPropiedad {
   titulo: string;
   descripcion: string;
   precio: number;
+  divisa: Divisa
   supCubierta: number;
   supTotal: number;
   cantidadHabitaciones: number;
