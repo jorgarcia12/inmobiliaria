@@ -90,7 +90,11 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    const newValue =
+      name === "tipoPropiedad" ? (value.toUpperCase() as TipoPropiedad) : value;
+
+    setFormData((prev) => ({ ...prev, [name]: newValue }));
   };
 
   const handleDireccionChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -160,6 +164,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
     }
 
     try {
+      console.log(JSON.stringify(formData));
       await onSubmit(formData);
       navigate("/admin");
       toast.success("Propiedad guardada!");
