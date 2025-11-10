@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { ChevronLeft, Star, Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
 import { imagenPropiedadService } from "../../../../services/imagenPropiedadService";
+import { tipoPropiedadDisplay } from "../../../../types/tipoPropiedadDisplay";
 
 interface IFormAddPropertyProps {
   propiedadInicial?: IPropiedad; // si existe, se está editando
@@ -374,12 +375,11 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
                 value={formData.tipoPropiedad}
                 onChange={handleChange}
               >
-                <option value="CASA">Casa</option>
-                <option value="DEPARTAMENTO">Departamento</option>
-                <option value="TERRENO">Terreno</option>
-                <option value="LOCAL_COMERCIAL">Local Comercial</option>
-                <option value="GALPON">Galpón</option>
-                <option value="DUPLEX">Duplex</option>
+                {Object.entries(tipoPropiedadDisplay).map(([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
               </Form.Select>
             </Form.Group>
           </Col>
