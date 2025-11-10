@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { ChevronLeft, Star, Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
 import { imagenPropiedadService } from "../../../../services/imagenPropiedadService";
+import { tipoPropiedadDisplay } from "../../../../types/tipoPropiedadDisplay";
 
 interface IFormAddPropertyProps {
   propiedadInicial?: IPropiedad; // si existe, se está editando
@@ -90,7 +91,11 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    const newValue =
+      name === "tipoPropiedad" ? (value.toUpperCase() as TipoPropiedad) : value;
+
+    setFormData((prev) => ({ ...prev, [name]: newValue }));
   };
 
   const handleDireccionChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -160,6 +165,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
     }
 
     try {
+      console.log(JSON.stringify(formData));
       await onSubmit(formData);
       navigate("/admin");
       toast.success("Propiedad guardada!");
@@ -369,12 +375,11 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
                 value={formData.tipoPropiedad}
                 onChange={handleChange}
               >
-                <option value="CASA">Casa</option>
-                <option value="DEPARTAMENTO">Departamento</option>
-                <option value="TERRENO">Terreno</option>
-                <option value="LOCAL_COMERCIAL">Local Comercial</option>
-                <option value="GALPON">Galpón</option>
-                <option value="DUPLEX">Duplex</option>
+                {Object.entries(tipoPropiedadDisplay).map(([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
               </Form.Select>
             </Form.Group>
           </Col>

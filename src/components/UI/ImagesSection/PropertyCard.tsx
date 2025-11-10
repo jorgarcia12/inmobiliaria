@@ -4,6 +4,7 @@ import { Ruler } from "lucide-react";
 import styles from "./PropertyCard.module.css";
 import HouseIcon from "@mui/icons-material/House";
 import ApartmentIcon from "@mui/icons-material/Apartment";
+import { tipoPropiedadDisplay } from "../../../types/tipoPropiedadDisplay";
 interface PropertyCardProps {
   propiedad: IPropiedad;
   onOpenModal: () => void;
@@ -49,7 +50,8 @@ export const PropertyCard: FC<PropertyCardProps> = ({
             <Ruler size={20} /> {propiedad.supTotal ?? 0} m² totales
           </span>
           <span>
-            <HouseIcon fontSize="small" /> {propiedad.tipoPropiedad || "-"}
+            <HouseIcon fontSize="small" />{" "}
+            {tipoPropiedadDisplay[propiedad.tipoPropiedad] || "-"}
           </span>
           <span>
             <ApartmentIcon fontSize="small" /> {propiedad.tipoOperacion || "-"}

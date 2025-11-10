@@ -3,6 +3,7 @@ import type { IPropiedad } from "../../../../types/IPropiedad";
 import styles from "./ModalDetallePropiedad.module.css";
 import type { FC } from "react";
 import { boolToString } from "../../../../utils/boolToString";
+import { tipoPropiedadDisplay } from "../../../../types/tipoPropiedadDisplay";
 
 interface TablaDetallePropiedadProps {
   propiedad: IPropiedad;
@@ -67,7 +68,7 @@ export const TablaDetalllePropiedad: FC<TablaDetallePropiedadProps> = ({
           <td>
             <strong>Tipo de Propiedad</strong>
           </td>
-          <td>{propiedad.tipoPropiedad}</td>
+          <td>{tipoPropiedadDisplay[propiedad.tipoPropiedad]}</td>
         </tr>
         <tr>
           <td>

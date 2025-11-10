@@ -25,7 +25,7 @@ export const SelectFilter = ({
     <option value="">{placeholder}</option>
     {options.map((opt) => (
       <option key={opt} value={opt}>
-        {opt}
+        {opt === "LOCAL_COMERCIAL" ? "LOCAL COMERCIAL" : opt}
       </option>
     ))}
   </select>
