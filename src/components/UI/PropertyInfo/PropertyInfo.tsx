@@ -8,6 +8,7 @@ import { WhatsApp } from "@mui/icons-material";
 import PoolIcon from "@mui/icons-material/Pool";
 
 import styles from "./PropertyInfo.module.css";
+import { tipoPropiedadDisplay } from "../../../types/tipoPropiedadDisplay";
 
 interface PropertyInfoProps {
   propiedad: IPropiedad;
@@ -22,12 +23,12 @@ export const PropertyInfo: FC<PropertyInfoProps> = ({
 }) => {
   const precioFormateado =
     propiedad.precio != null
-      ? `${new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-          currencyDisplay: "code",
-          minimumFractionDigits: 0,
-        }).format(propiedad.precio)}`
+      ? `$${propiedad.divisa === "USD" ? "USD" : "ARS"} ${new Intl.NumberFormat(
+          "es-AR",
+          {
+            minimumFractionDigits: 0,
+          }
+        ).format(propiedad.precio)}`
       : "Consultar";
 
   const handleConsulta = () => {
@@ -93,7 +94,8 @@ export const PropertyInfo: FC<PropertyInfoProps> = ({
           <h5 className={styles.propertyInfoPrice}>{precioFormateado}</h5>
           <div className={styles.propertyInfoDetails}>
             <span>
-              <HouseIcon fontSize="small" /> {propiedad.tipoPropiedad || "-"}
+              <HouseIcon fontSize="small" />{" "}
+              {tipoPropiedadDisplay[propiedad.tipoPropiedad] || "-"}
             </span>
             <span>
               <ApartmentIcon fontSize="small" />{" "}

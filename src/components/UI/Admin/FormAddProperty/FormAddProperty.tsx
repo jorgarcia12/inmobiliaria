@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, type FC, type FormEvent } from "react";
 import type { IPropiedad } from "../../../../types/IPropiedad";
 import type {
+  Divisa,
   Estado,
   TipoOperacion,
   TipoPropiedad,
@@ -12,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { ChevronLeft, Star, Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
 import { imagenPropiedadService } from "../../../../services/imagenPropiedadService";
+import { tipoPropiedadDisplay } from "../../../../types/tipoPropiedadDisplay";
 
 interface IFormAddPropertyProps {
   propiedadInicial?: IPropiedad; // si existe, se está editando
@@ -49,12 +51,14 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
           pileta: !!propiedadInicial.pileta,
           aptProf: !!propiedadInicial.aptProf,
           barrioPriv: !!propiedadInicial.barrioPriv,
+          divisa: propiedadInicial.divisa || "USD",
         }
       : {
           id: undefined,
           titulo: "",
           descripcion: "",
           precio: 0,
+          divisa: "USD",
           supCubierta: 0,
           supTotal: 0,
           cantidadHabitaciones: 0,
@@ -87,7 +91,11 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    const newValue =
+      name === "tipoPropiedad" ? (value.toUpperCase() as TipoPropiedad) : value;
+
+    setFormData((prev) => ({ ...prev, [name]: newValue }));
   };
 
   const handleDireccionChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -155,12 +163,9 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
       toast.error("Debe completar al menos calle y ciudad");
       return;
     }
-    if (formData.supTotal < formData.supCubierta) {
-      toast.error("La superficie total no puede ser menor que la cubierta");
-      return;
-    }
 
     try {
+      console.log(JSON.stringify(formData));
       await onSubmit(formData);
       navigate("/admin");
       toast.success("Propiedad guardada!");
@@ -183,6 +188,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
         estado: "DISPONIBLE" as Estado,
         tipoOperacion: "VENTA" as TipoOperacion,
         tipoPropiedad: "CASA" as TipoPropiedad,
+        divisa: "USD" as Divisa,
         publicada: false,
         patio: false,
         cochera: false,
@@ -215,7 +221,7 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
           className={styles.backButton}
           onClick={() => navigate(-1)} // vuelve a la pantalla anterior
         >
-          <ChevronLeft size={18}/>
+          <ChevronLeft size={18} />
           Volver atrás
         </Button>
         <Form.Group className="mb-3">
@@ -245,6 +251,25 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
         <h5 className={styles.formSubtitle}>Características</h5>
         <Row className="mb-3">
           <Col>
+            <Col>
+              <Form.Group>
+                <Form.Label className={styles.label}>Divisa</Form.Label>
+                <Form.Select
+                  className={styles.inputForm}
+                  name="divisa"
+                  value={formData.divisa || ""}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="" disabled>
+                    {" "}
+                    Divisa
+                  </option>
+                  <option value="USD">USD</option>
+                  <option value="ARS">ARS</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
             <Form.Group>
               <Form.Label className={styles.label}>Precio</Form.Label>
               <Form.Control
@@ -269,18 +294,20 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
                 onChange={handleChange}
               />
             </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group>
-              <Form.Label className={styles.label}>Sup. Total (m²)</Form.Label>
-              <Form.Control
-                type="number"
-                className={styles.inputForm}
-                name="supTotal"
-                value={formData.supTotal}
-                onChange={handleChange}
-              />
-            </Form.Group>
+            <Col>
+              <Form.Group>
+                <Form.Label className={styles.label}>
+                  Sup. Total (m²)
+                </Form.Label>
+                <Form.Control
+                  type="number"
+                  className={styles.inputForm}
+                  name="supTotal"
+                  value={formData.supTotal}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </Col>
           </Col>
         </Row>
 
@@ -348,29 +375,30 @@ export const FormAddProperty: FC<IFormAddPropertyProps> = ({
                 value={formData.tipoPropiedad}
                 onChange={handleChange}
               >
-                <option value="CASA">Casa</option>
-                <option value="DEPARTAMENTO">Departamento</option>
-                <option value="TERRENO">Terreno</option>
-                <option value="LOCAL_COMERCIAL">Local Comercial</option>
-                <option value="GALPON">Galpón</option>
+                {Object.entries(tipoPropiedadDisplay).map(([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
               </Form.Select>
             </Form.Group>
           </Col>
-
-          <Form.Group>
-            <Form.Label className={styles.label}>Estado</Form.Label>
-            <Form.Select
-              className={styles.inputForm}
-              name="estado"
-              value={formData.estado}
-              onChange={handleChange}
-            >
-              <option value="DISPONIBLE">Disponible</option>
-              <option value="VENDIDO">Vendido</option>
-              <option value="ALQUILADO">Alquilado</option>
-              <option value="RESERVADO">Reservado</option>
-            </Form.Select>
-          </Form.Group>
+          <Col>
+            <Form.Group>
+              <Form.Label className={styles.label}>Estado</Form.Label>
+              <Form.Select
+                className={styles.inputForm}
+                name="estado"
+                value={formData.estado}
+                onChange={handleChange}
+              >
+                <option value="DISPONIBLE">Disponible</option>
+                <option value="VENDIDO">Vendido</option>
+                <option value="ALQUILADO">Alquilado</option>
+                <option value="RESERVADO">Reservado</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
 
           {/* CHECKBOX */}
           <Form.Group className="mb-3">

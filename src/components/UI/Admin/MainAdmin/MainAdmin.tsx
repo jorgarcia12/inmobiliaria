@@ -3,6 +3,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Button, Form, Spinner, Table } from "react-bootstrap";
 import { ModalDetallePropiedad } from "../ModalDetallePropiedad/ModalDetallePropiedad";
 import { usePropiedadesStore } from "../../../../store/propiedadesStore";
+import { tipoPropiedadDisplay } from "../../../../types/tipoPropiedadDisplay";
 
 export const MainAdmin = () => {
   const { propiedades, loading, error, fetchPropiedades, togglePublicada } =
@@ -42,7 +43,7 @@ export const MainAdmin = () => {
           {propiedades.map((prop) => (
             <Fragment key={prop.id}>
               <tr>
-                <td>{prop.id}</td>
+                <td>#{prop.id}</td>
                 <td>
                   {prop.imagenes && prop.imagenes.length > 0 ? (
                     <img
@@ -58,7 +59,7 @@ export const MainAdmin = () => {
                     <span>Sin Imagenes</span>
                   )}
                 </td>
-                <td>{prop.tipoPropiedad || "-"}</td>
+                <td>{tipoPropiedadDisplay[prop.tipoPropiedad] || "-"}</td>
                 <td>{prop.tipoOperacion || "-"}</td>
                 <td>
                   {" "}

@@ -56,7 +56,9 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
     }
   };
 
-  const aplicarFiltros = () => setFilters({ ...localFilters });
+  const aplicarFiltros = () => {
+    console.log(localFilters)
+    setFilters({ ...localFilters })};
 
   const resetearFiltros = () => {
     const reset: FiltrosPropiedad = {
@@ -141,10 +143,12 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
                 "TERRENO",
                 "LOCAL_COMERCIAL",
                 "GALPON",
+                "DUPLEX"
               ]}
               value={localFilters.tipoPropiedad}
               onChange={handleFilterChange}
             />
+
             <SelectFilter
               name="tipoOperacion"
               placeholder="Tipo de Operación"
