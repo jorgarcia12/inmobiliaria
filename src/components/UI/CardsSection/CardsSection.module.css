@@ -5,6 +5,7 @@
   justify-content: center;
 }
 
+/* --- TARJETA PRINCIPAL --- */
 .card {
   display: flex;
   flex-direction: row;
@@ -12,43 +13,39 @@
   margin: 30px;
   min-height: 350px;
   margin-bottom: 50px;
-  max-width: 1400px;
+  max-width: 1200px; 
+  width: 100%;
 }
+
 .cardImgContainer {
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
-}
-.cardImg {
-  height: 350px;
-  width: auto;
+  height: 400px;   /* 🔥 Ajustado para balance */
+  width: 400px;
+  overflow: hidden;
   border-radius: 0.4rem;
 }
+
+.cardImg {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Caja de texto */
 .cardInfoContainer {
-  height: 250px;
-  width: auto;
+  flex: 1;
   background-color: #f8f9fa;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  padding: 1vw;
+  padding: 1.5rem;
   border-radius: 0 0.4rem 0.4rem 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  gap: 2vh;
+  gap: 1rem;
 }
 
-.cardInfoContainer2 {
-  height: 250px;
-  width: auto;
-  background-color: #f8f9fa;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  padding: 1vw;
-  border-radius: 0.4rem 0 0 0.4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 2vh;
-}
+/* BOTÓN */
 .buttonPropiedades {
   width: 150px;
   height: 40px;
@@ -65,45 +62,57 @@
 .buttonPropiedades:hover {
   background-color: #b85b2f;
   color: black;
-  border: none;
 }
 
-.cardTitle {
-  font-size: large;
+/* --- TARJETA SECUNDARIA --- */
+.cardAlt {
+  width: 100%;
+  max-width: 1200px; 
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 0.6rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5vh;
 }
-.cardText {
-  font-size: medium;
-  margin: 1vh;
+
+/* Contenido centrado */
+.cardAltContent {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 600px;
 }
+
+.cardTextAlt {
+  color: #444;
+  font-size: 1rem;
+}
+
+/* --- RESPONSIVE --- */
 @media (max-width: 480px) {
   .cardsContainer {
     margin-top: 100px;
   }
+
   .card {
     flex-direction: column;
     margin-top: 15px;
+    max-width: 90vw;
   }
 
   .cardImgContainer {
-    order: 0;
-  }
-
-  .cardInfoContainer,
-  .cardInfoContainer2 {
-    order: 1;
-  }
-
-  .cardImg {
-    height: auto;
     width: 100%;
-    max-width: 400px;
+    height: 250px;
   }
-  .cardText {
-    display: none;
-  }
-  .cardInfoContainer,
-  .cardInfoContainer2 {
-    height: auto;
+
+  .cardInfoContainer {
     width: 100%;
     border-radius: 0 0 0.4rem 0.4rem;
     padding: 15px;
@@ -113,5 +122,11 @@
   .buttonPropiedades {
     width: 100%;
     max-width: 250px;
+  }
+
+  .cardAlt {
+    max-width: 90vw;
+    margin-top: 20px;
+    padding: 20px;
   }
 }

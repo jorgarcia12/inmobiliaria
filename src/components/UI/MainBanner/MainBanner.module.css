@@ -37,7 +37,7 @@
 
 /* Banner */
 .banner {
-  background-image: url("../../../assets/bannerImg.jpg"); /* ajustá ruta */
+  background-image: url("../../../assets/banner_viñedo.jpeg"); /* ajustá ruta */
   background-size: cover;
   background-position: center;
   height: 560px;
