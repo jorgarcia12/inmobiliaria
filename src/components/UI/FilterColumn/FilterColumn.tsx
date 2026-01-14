@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./FilterColumn.module.css";
 import { Slider, Typography } from "@mui/material";
 import { Button } from "react-bootstrap";
@@ -6,31 +6,65 @@ import type { FiltrosPropiedad } from "../../../types/FiltrosPropiedad";
 import { SelectFilter } from "./Filters/SelectFilter";
 import { CheckboxFilter } from "./Filters/CheckboxFilter";
 import { Menu } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 
 interface FilterColumnProps {
-  filters: FiltrosPropiedad;
-  setFilters: React.Dispatch<React.SetStateAction<FiltrosPropiedad>>;
+  onApply: (filters: FiltrosPropiedad) => void;
 }
 
-export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
-  const [localFilters, setLocalFilters] = useState<FiltrosPropiedad>({
-    ...filters,
-  });
-  const [precioRange, setPrecioRange] = useState<number[]>([
-    filters.precioMin || 0,
-    filters.precioMax || 1000000,
-  ]);
-  const [open, setOpen] = useState(false); // para el menú hamburguesa
+export const FilterColumn = ({ onApply }: FilterColumnProps) => {
+  const [searchParams] = useSearchParams();
+  const tipoOperacionParam = searchParams.get("tipo_operacion");
 
+  const [localFilters, setLocalFilters] = useState<FiltrosPropiedad>({
+    search: "",
+    titulo: "",
+    precioMin: 0,
+    precioMax: 1000000,
+    tipoOperacion: tipoOperacionParam || "",
+    tipoPropiedad: "",
+    estado: "",
+    habitaciones: undefined,
+    cantidadAmbientes: undefined,
+    cantidadBanos: undefined,
+    publicada: undefined,
+    barrioPriv: false,
+    patio: false,
+    cochera: false,
+    permuta: false,
+    servicios: false,
+    amoblado: false,
+    pileta: false,
+    aptProf: false,
+  });
+
+  const [precioRange, setPrecioRange] = useState<number[]>([0, 1000000]);
+  const [open, setOpen] = useState(false);
+
+  /** Si cambia el banner (URL), solo actualizamos el select */
   useEffect(() => {
-    setLocalFilters({ ...filters });
-    setPrecioRange([filters.precioMin || 0, filters.precioMax || 1000000]);
-  }, [filters]);
+    if (!tipoOperacionParam) return;
+
+    setLocalFilters((prev) => ({
+      ...prev,
+      tipoOperacion: tipoOperacionParam,
+    }));
+  }, [tipoOperacionParam]);
+  useEffect(() => {
+    if (!tipoOperacionParam) return;
+
+    onApply({
+      ...localFilters,
+      tipoOperacion: tipoOperacionParam,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tipoOperacionParam]);
 
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value, type, checked } = e.target as HTMLInputElement;
+
     setLocalFilters((prev) => ({
       ...prev,
       [name]:
@@ -44,8 +78,7 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
     }));
   };
 
-  const handlePrecioChange = (event: Event, newValue: number | number[]) => {
-    void event;
+  const handlePrecioChange = (_: Event, newValue: number | number[]) => {
     if (Array.isArray(newValue)) {
       setPrecioRange(newValue);
       setLocalFilters((prev) => ({
@@ -57,8 +90,8 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
   };
 
   const aplicarFiltros = () => {
-    console.log(localFilters)
-    setFilters({ ...localFilters })};
+    onApply(localFilters);
+  };
 
   const resetearFiltros = () => {
     const reset: FiltrosPropiedad = {
@@ -66,7 +99,7 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
       titulo: "",
       precioMin: 0,
       precioMax: 1000000,
-      tipoOperacion: "",
+      tipoOperacion: tipoOperacionParam || "",
       tipoPropiedad: "",
       estado: "",
       habitaciones: undefined,
@@ -82,14 +115,15 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
       pileta: false,
       aptProf: false,
     };
+
     setLocalFilters(reset);
-    setFilters(reset);
     setPrecioRange([0, 1000000]);
+    onApply(reset);
   };
 
   return (
     <>
-      {/* Botón hamburguesa solo visible en mobile */}
+      {/* Botón hamburguesa (mobile) */}
       <Button
         variant="light"
         className={styles.hamburgerButton}
@@ -120,6 +154,7 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
               value={localFilters.habitaciones}
               onChange={handleFilterChange}
             />
+
             <SelectFilter
               name="cantidadAmbientes"
               placeholder="Ambientes"
@@ -127,6 +162,7 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
               value={localFilters.cantidadAmbientes}
               onChange={handleFilterChange}
             />
+
             <SelectFilter
               name="cantidadBanos"
               placeholder="Baños"
@@ -134,6 +170,7 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
               value={localFilters.cantidadBanos}
               onChange={handleFilterChange}
             />
+
             <SelectFilter
               name="tipoPropiedad"
               placeholder="Tipo de Propiedad"
@@ -143,7 +180,7 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
                 "TERRENO",
                 "LOCAL_COMERCIAL",
                 "GALPON",
-                "DUPLEX"
+                "DUPLEX",
               ]}
               value={localFilters.tipoPropiedad}
               onChange={handleFilterChange}
@@ -175,7 +212,6 @@ export const FilterColumn = ({ filters, setFilters }: FilterColumnProps) => {
               checked={!!localFilters.barrioPriv}
               onChange={handleFilterChange}
             />
-
             <CheckboxFilter
               label="Patio"
               name="patio"

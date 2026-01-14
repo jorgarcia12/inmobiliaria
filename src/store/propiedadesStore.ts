@@ -3,19 +3,33 @@ import type { IPropiedad } from "../types/IPropiedad";
 import { propiedadService } from "../services/propiedadService";
 import type { FiltrosPropiedad } from "../types/FiltrosPropiedad";
 import { cleanFilters } from "../utils/cleanFilters";
+import type { TipoOperacion } from "../types/enums";
 
 interface PropiedadesState {
   propiedades: IPropiedad[];
   loading: boolean;
+  filtros: FiltrosPropiedad;
   error: string | null;
   fetchPropiedades: () => Promise<void>;
   fetchPropiedadesFiltradas: (filters: FiltrosPropiedad) => Promise<void>;
+  aplicarTipoOperacionDesdeBanner: (
+    tipoOperacion: TipoOperacion
+  ) => Promise<void>;
   togglePublicada: (id: number, publicada: boolean) => Promise<void>;
   deleteProperty: (id: number) => Promise<void>;
 }
 
 export const usePropiedadesStore = create<PropiedadesState>((set, get) => ({
   propiedades: [],
+  filtros: {
+    search: "",
+    titulo: "",
+    precioMin: 0,
+    precioMax: 1000000,
+    tipoOperacion: "",
+    tipoPropiedad: "",
+    estado: "",
+  },
   loading: false,
   error: null,
   fetchPropiedades: async () => {
@@ -30,21 +44,45 @@ export const usePropiedadesStore = create<PropiedadesState>((set, get) => ({
   },
 
   fetchPropiedadesFiltradas: async (filters: FiltrosPropiedad) => {
-    set({ loading: true, error: null });
+    set({ loading: true, error: null, filtros: filters });
+
     try {
-      // Limpiamos los filtros antes de enviarlos
       const filtrosLimpios = cleanFilters(filters);
-      console.log("Filtros limpios enviados al servicio:", filtrosLimpios);
-      // Llamamos al servicio que usa Axios
       const data = await propiedadService.filterProperties(filtrosLimpios);
 
       set({ propiedades: data, loading: false });
     } catch (error) {
-      set({ error: "Error al cargar propiedades filtradas", loading: false });
-      console.error("Error al cargar las propiedades filtradas", error);
+      set({
+        error: "Error al cargar propiedades filtradas",
+        loading: false,
+      });
+      console.log(error);
     }
   },
 
+  aplicarTipoOperacionDesdeBanner: async (tipoOperacion: TipoOperacion) => {
+    const filtrosActuales = get().filtros;
+
+    const nuevosFiltros: FiltrosPropiedad = {
+      ...filtrosActuales,
+      tipoOperacion,
+    };
+
+    set({ loading: true, filtros: nuevosFiltros });
+
+    try {
+      const filtrosLimpios = cleanFilters(nuevosFiltros);
+      const data = await propiedadService.filterProperties(filtrosLimpios);
+
+      set({ propiedades: data, loading: false });
+    } catch (error) {
+      set({
+        error: "Error al cargar propiedades por tipo de operacion",
+        loading: false,
+      });
+      console.error(error);
+    }
+  },
   togglePublicada: async (id: number, publicada: boolean) => {
     try {
       const actualizada = await propiedadService.togglePublicada(id, publicada);
