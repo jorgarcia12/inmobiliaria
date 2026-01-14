@@ -7,11 +7,11 @@ export const MainBanner = () => {
   const numeroTelefono = import.meta.env.VITE_CONTACT_PHONE;
 
   const handleNavComprar = () => {
-    navigate("/propiedades");
+    navigate("/propiedades?tipo_operacion=VENTA");
   };
 
   const handleNavAlquilar = () => {
-    navigate("/propiedades");
+    navigate("/propiedades?tipo_operacion=ALQUILER");
   };
 
   const handleNavVender = () => {
