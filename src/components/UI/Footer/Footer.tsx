@@ -27,9 +27,9 @@ export const Footer = () => {
       <div className={styles.footerIndex}>
         <h4>Explorar</h4>
         <li onClick={() => handleNavigate("/")}>Inicio</li>
-        <li onClick={() => handleNavigate("/propiedades")}>Comprar</li>
+        <li onClick={() => handleNavigate("/propiedades?tipo_operacion=VENTA")}>Comprar</li>
         <li>Vender</li>
-        <li onClick={() => navigate("/propiedades")}>Alquilar</li>
+        <li onClick={() => handleNavigate("/propiedades?tipo_operacion=ALQUILER")}>Alquilar</li>
         <li onClick={handleContacto}>Contacto</li>
       </div>
 

@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { FilterColumn } from "../../components/UI/FilterColumn/FilterColumn";
 import { ImagesSection } from "../../components/UI/ImagesSection/ImagesSection";
-import styles from "./Properties.module.css";
+import styles from "./PropertyList.module.css";
 import { usePropiedadesStore } from "../../store/propiedadesStore";
 import { useSearchParams } from "react-router-dom";
 
-export const Properties = () => {
+export const PropertyList = () => {
   const {
     fetchPropiedades,
     fetchPropiedadesFiltradas,
