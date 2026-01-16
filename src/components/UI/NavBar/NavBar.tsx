@@ -44,7 +44,7 @@ export const NavBar = () => {
         <ul>
           <li>
             <Link
-              to="/propiedades"
+              to="/propiedades?tipo_operacion=VENTA"
               className={styles.links}
               onClick={() => setIsOpen(false)}
             >
@@ -58,7 +58,7 @@ export const NavBar = () => {
           </li>
           <li>
             <Link
-              to="/propiedades"
+              to="/propiedades?tipo_operacion=ALQUILER"
               className={styles.links}
               onClick={() => setIsOpen(false)}
             >
