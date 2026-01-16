@@ -1,4 +1,4 @@
-import styles from "./Property.module.css";
+// import styles from "./Property.module.css";
 
 
 
