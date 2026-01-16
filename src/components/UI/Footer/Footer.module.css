@@ -51,9 +51,23 @@ h4 {
 .contactContainer {
   display: flex;
   flex-direction: column;
-
+  justify-content: center;
+  align-items: center;
   gap: 0.5rem;
   margin-right: 60px;
+}
+
+.contactContainer a{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  list-style: none;
+  text-decoration: none;
 }
 
 .contactContainer a {

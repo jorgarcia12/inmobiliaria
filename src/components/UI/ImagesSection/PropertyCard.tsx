@@ -1,19 +1,19 @@
-import type { FC } from "react";
+import { type FC } from "react";
 import type { IPropiedad } from "../../../types/IPropiedad";
 import { Ruler } from "lucide-react";
 import styles from "./PropertyCard.module.css";
 import HouseIcon from "@mui/icons-material/House";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import { tipoPropiedadDisplay } from "../../../types/tipoPropiedadDisplay";
+import { useNavigate } from "react-router-dom";
+import { createSlugs } from "../../../utils/createSlugs";
 interface PropertyCardProps {
   propiedad: IPropiedad;
-  onOpenModal: () => void;
 }
 
-export const PropertyCard: FC<PropertyCardProps> = ({
-  propiedad,
-  onOpenModal,
-}) => {
+export const PropertyCard: FC<PropertyCardProps> = ({ propiedad }) => {
+  const navigate = useNavigate();
+  const slug = createSlugs(propiedad.titulo);
   const precioFormateado =
     propiedad.precio != null
       ? `$${propiedad.divisa === "USD" ? "USD" : "ARS"} ${new Intl.NumberFormat(
@@ -59,7 +59,10 @@ export const PropertyCard: FC<PropertyCardProps> = ({
         </div>
 
         <div className={styles.buttonContainer}>
-          <button className={styles.buttonMore} onClick={onOpenModal}>
+          <button
+            className={styles.buttonMore}
+            onClick={() => navigate(`/propiedades/${slug}-${propiedad.id}`)}
+          >
             Ver más
           </button>
         </div>

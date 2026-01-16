@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import type { IPropiedad } from "../../../types/IPropiedad";
 import { PropertyCard } from "./PropertyCard";
-import { PropertyInfo } from "../PropertyInfo/PropertyInfo";
+
 import { usePropiedadesStore } from "../../../store/propiedadesStore";
 import type { FiltrosPropiedad } from "../../../types/FiltrosPropiedad";
 
@@ -17,8 +17,6 @@ export const ImagesSection = ({ filters }: ImagesSectionProps) => {
     loading,
     error,
   } = usePropiedadesStore();
-  const [propiedadSeleccionada, setPropiedadSeleccionada] =
-    useState<IPropiedad | null>(null);
 
   useEffect(() => {
     if (filters) {
@@ -26,7 +24,7 @@ export const ImagesSection = ({ filters }: ImagesSectionProps) => {
     } else {
       fetchPropiedades();
     }
-  }, [filters]); 
+  }, [filters]);
 
   const propiedadesHabilitadas = propiedades.filter((p) => p.publicada);
 
@@ -38,22 +36,10 @@ export const ImagesSection = ({ filters }: ImagesSectionProps) => {
       <div className="d-flex flex-wrap gap-3">
         {propiedadesHabilitadas.length > 0
           ? propiedadesHabilitadas.map((prop: IPropiedad) => (
-              <PropertyCard
-                key={prop.id}
-                propiedad={prop}
-                onOpenModal={() => setPropiedadSeleccionada(prop)}
-              />
+              <PropertyCard key={prop.id} propiedad={prop} />
             ))
           : !loading && <p>No hay propiedades cargadas</p>}
       </div>
-
-      {propiedadSeleccionada && (
-        <PropertyInfo
-          propiedad={propiedadSeleccionada}
-          show={!!propiedadSeleccionada}
-          onClose={() => setPropiedadSeleccionada(null)}
-        />
-      )}
     </>
   );
 };

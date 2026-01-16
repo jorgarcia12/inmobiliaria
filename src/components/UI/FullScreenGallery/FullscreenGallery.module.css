@@ -1,0 +1,111 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.96);
+  z-index: 9999;
+  overflow: hidden;
+}
+
+/* ===== CERRAR ===== */
+/* ===== CERRAR ===== */
+.close {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  line-height: 1;
+  color: #fff;
+  background: transparent;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.close:hover {
+  color: #db703b;
+  background: transparent;
+}
+
+/* ===== SLIDER ===== */
+.slider {
+  display: flex;
+  height: 100%;
+  transition: transform 0.35s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* ===== FLECHAS ===== */
+.left,
+.right {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  color: #fff;
+  font-size: 40px;
+  border: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+.left {
+  left: 24px;
+}
+.left:hover {
+  color: #db703b;
+  background-color: transparent;
+}
+.right {
+  right: 24px;
+}
+.right:hover {
+  color: #db703b;
+  background-color: transparent;
+}
+/* ===== CONTADOR ===== */
+.counter {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .left,
+  .right {
+    display: none;
+  }
+
+  .close {
+    top: 12px;
+    right: 12px;
+  }
+
+  .counter {
+    bottom: 12px;
+  }
+}
